@@ -14,7 +14,7 @@ const categories = computed(() => {
 // 카테고리 선택 시 해당 카테고리 콘텐츠 뷰로 이동
 const selectCategory = (categoryName) => {
     // URL 인코딩을 통해 안전하게 파라미터 전달
-    router.push({ name: 'categoryContent', params: { categoryName: encodeURIComponent(categoryName) } })
+    router.push({ name: 'category-content', params: { categoryName: encodeURIComponent(categoryName) } })
 }
 </script>
 

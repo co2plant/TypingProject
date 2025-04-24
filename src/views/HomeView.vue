@@ -1,9 +1,9 @@
 <script setup>
-import ContentList from '@/components/ContentList.vue'
+import CategorySelectionView from './CategorySelectionView.vue';
 </script>
 
 <template>
   <main>
-    <ContentList />
+    <CategorySelectionView />
   </main>
 </template>
