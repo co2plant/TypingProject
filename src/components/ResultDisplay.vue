@@ -12,12 +12,11 @@ const goHome = () => {
     router.push({ name: 'home' })
 }
 
-// 이전 연습 콘텐츠 ID를 알 수 없으므로, 홈으로만 이동하도록 단순화
-// const retryPractice = () => {
-//   // 이전 contentId를 알아야 함. 상태 관리 라이브러리(Pinia/Vuex) 또는 다른 방법 필요
-//   // MVP에서는 홈으로 이동하는 것으로 대체
-//   router.push({ name: 'home' })
-// }
+const retryPractice = () => {
+    // 이전 contentId를 알아야 함. 상태 관리 라이브러리(Pinia/Vuex) 또는 다른 방법 필요
+    // MVP에서는 홈으로 이동하는 것으로 대체
+    router.push({ name: 'home' })
+}
 </script>
 
 <template>
@@ -37,7 +36,7 @@ const goHome = () => {
         </div>
         <div class="actions">
             <button @click="goHome">홈으로 돌아가기</button>
-            <!-- <button @click="retryPractice">다시 연습하기</button> -->
+            <button @click="retryPractice">다시 연습하기</button>
         </div>
     </div>
 </template>
@@ -93,12 +92,11 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* 다시하기 버튼 스타일 (필요시) */
-/* button:last-child {
-  background-color: #6c757d;
+button:last-child {
+    background-color: #6c757d;
 }
 
 button:last-child:hover {
-  background-color: #5a6268;
-} */
+    background-color: #5a6268;
+}
 </style>
