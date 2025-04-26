@@ -4,6 +4,9 @@ import PracticeView from '../views/PracticeView.vue'
 import ResultView from '../views/ResultView.vue'
 import CategorySelectionView from '../views/CategorySelectionView.vue' // 추가
 import CategoryContentView from '../views/CategoryContentView.vue' // 추가
+import QuizView from '../views/QuizView.vue'
+import QuizResultView from '../views/QuizResultView.vue'
+import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue' // 추가
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,13 +31,28 @@ const router = createRouter({
     {
       path: '/practice/:contentId',
       name: 'practice',
-      component: PracticeView,
       props: true
     },
     {
       path: '/result',
       name: 'result',
       component: ResultView
+    },
+    {
+      path: '/quiz/:contentId',
+      name: 'quiz',
+      component: QuizView,
+      props: true
+    },
+    {
+      path: '/quiz-result',
+      name: 'quiz-result',
+      component: QuizResultView
+    },
+    {
+      path: '/quizCategorySelection',
+      name: 'quiz-category-selection',
+      component: QuizCategorySelectionView
     }
   ]
 })

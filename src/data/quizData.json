@@ -1,0 +1,62 @@
+[
+  {
+    "id": "q-cs-001",
+    "category": "컴퓨터 과학",
+    "question": "계산, 정보, 자동화에 대한 학문은 무엇인가요?",
+    "options": [
+      "네트워크 공학",
+      "컴퓨터 과학",
+      "데이터베이스 관리",
+      "웹 개발"
+    ],
+    "answer": "컴퓨터 과학"
+  },
+  {
+    "id": "q-cs-002",
+    "category": "컴퓨터 과학",
+    "question": "문제를 해결하기 위한 절차나 방법을 무엇이라고 하나요?",
+    "options": [
+      "데이터 구조",
+      "프로토콜",
+      "알고리즘",
+      "컴파일러"
+    ],
+    "answer": "알고리즘"
+  },
+  {
+    "id": "q-net-001",
+    "category": "네트워크",
+    "question": "인터넷에서 컴퓨터들이 서로를 식별하는 데 사용되는 주소 체계는 무엇인가요?",
+    "options": [
+      "MAC 주소",
+      "IP 주소",
+      "포트 번호",
+      "URL"
+    ],
+    "answer": "IP 주소"
+  },
+  {
+    "id": "q-net-002",
+    "category": "네트워크",
+    "question": "도메인 이름을 IP 주소로 변환해주는 시스템은 무엇인가요?",
+    "options": [
+      "DHCP",
+      "DNS",
+      "NAT",
+      "VPN"
+    ],
+    "answer": "DNS"
+  },
+  {
+    "id": "q-js-001",
+    "category": "프로그래밍",
+    "question": "웹 페이지를 동적으로 만들기 위해 주로 사용되는 스크립트 언어는 무엇인가요?",
+    "options": [
+      "HTML",
+      "CSS",
+      "Python",
+      "JavaScript"
+    ],
+    "answer": "JavaScript"
+  }
+]
