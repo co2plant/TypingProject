@@ -31,6 +31,7 @@ const router = createRouter({
     {
       path: '/practice/:contentId',
       name: 'practice',
+      component: PracticeView,
       props: true
     },
     {
