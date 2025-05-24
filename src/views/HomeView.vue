@@ -11,7 +11,7 @@ const startPractice = (contentId) => {
 </script>
 
 <template>
-  <div class="home-container">
+  <div class="w-full mx-auto px-4 py-8">
     <div class="header">
       <h1>타자 연습</h1>
       <p class="subtitle">타자 속도와 정확도를 향상시키는 인터랙티브 타자 연습</p>
@@ -59,11 +59,12 @@ const startPractice = (contentId) => {
 </template>
 
 <style scoped>
-.home-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
+/* home-container는 Tailwind 클래스로 대체됨
+   max-w-6xl: 최대 너비 1152px (tailwind에서 6xl은 72rem = 1152px)
+   mx-auto: 가운데 정렬 (margin: 0 auto)
+   px-4: 좌우 패딩 (padding-left, padding-right: 1rem)
+   py-8: 상하 패딩 (padding-top, padding-bottom: 2rem)
+*/
 
 .header {
   text-align: center;
