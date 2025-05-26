@@ -7,6 +7,10 @@ import CategoryContentView from '../views/CategoryContentView.vue' // 추가
 import QuizView from '../views/QuizView.vue'
 import QuizResultView from '../views/QuizResultView.vue'
 import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue' // 추가
+import ExamCategorySelectionView from '../views/ExamCategorySelectionView.vue'
+import ExamListView from '../views/ExamListView.vue'
+import ExamView from '../views/ExamView.vue'
+import ExamResultView from '../views/ExamResultView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,10 +18,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView // 모든 콘텐츠 목록 표시 (기존 유지)
+      component: HomeView
     },
     {
-      path: '/categories', // 카테고리 선택 페이지 경로
+      path: '/categories',
       name: 'category-selection',
       component: CategorySelectionView
     },
@@ -54,6 +58,28 @@ const router = createRouter({
       path: '/quizCategorySelection',
       name: 'quiz-category-selection',
       component: QuizCategorySelectionView
+    },
+    {
+      path: '/exam-categories',
+      name: 'exam-categories',
+      component: ExamCategorySelectionView
+    },
+    {
+      path: '/exam-list/:category',
+      name: 'exam-list',
+      component: ExamListView,
+      props: true
+    },
+    {
+      path: '/exam/:examId',
+      name: 'exam',
+      component: ExamView,
+      props: true
+    },
+    {
+      path: '/exam-result',
+      name: 'exam-result',
+      component: ExamResultView
     }
   ]
 })
