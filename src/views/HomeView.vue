@@ -1,213 +1,48 @@
 <script setup>
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import typingContents from '@/data/typingContents.json'
 
 const router = useRouter()
 
-const startPractice = (contentId) => {
-  router.push({ name: 'practice', params: { contentId } })
+const goToCategorySelection = () => {
+  router.push({ name: 'category-selection' })
+}
+
+const goToQuizCategorySelection = () => {
+  router.push({ name: 'quiz-category-selection' })
+}
+
+const goToExamCategorySelection = () => {
+  router.push({ name: 'exam-categories' })
 }
 </script>
 
 <template>
-  <div class="w-full mx-auto px-4 py-8">
-    <div class="header">
-      <h1>타자 연습</h1>
-      <p class="subtitle">타자 속도와 정확도를 향상시키는 인터랙티브 타자 연습</p>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-primary-700 mb-4">개발자를 위한 타자 연습</h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">타자 속도와 정확도를 향상시키면서 기술 개념도 함께 익히는 인터랙티브 학습 플랫폼</p>
     </div>
 
-    <div class="features">
-      <div class="feature-card">
-        <div class="feature-icon">⌨️</div>
-        <h3>연습</h3>
-        <p>다양한 타자 연습을 통해 실력을 향상시키세요</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer" @click="goToCategorySelection()">
+        <div class="text-5xl mb-4 text-center">⌨️</div>
+        <h3 class="text-xl font-semibold text-primary-600 mb-2 text-center">타자 연습</h3>
+        <p class="text-gray-600 text-center">다양한 기술 콘텐츠로 타자 실력을 향상시키세요</p>
       </div>
       
-      <div class="feature-card">
-        <div class="feature-icon">⏱️</div>
-        <h3>시간 측정</h3>
-        <p>분당 타자수(WPM)로 속도를 측정하세요</p>
+      <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer" @click="goToQuizCategorySelection()">
+        <div class="text-5xl mb-4 text-center">⏱️</div>
+        <h3 class="text-xl font-semibold text-primary-600 mb-2 text-center">퀴즈</h3>
+        <p class="text-gray-600 text-center">배운 기술 개념을 퀴즈로 검증해보세요</p>
       </div>
       
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3>분석</h3>
-        <p>정확도와 성능에 대한 상세한 피드백을 받으세요</p>
-      </div>
-    </div>
-
-    <h2>연습 목록</h2>
-    
-    <div class="content-list">
-      <div 
-        v-for="content in typingContents" 
-        :key="content.id" 
-        class="content-card"
-        @click="startPractice(content.id)"
-      >
-        <h3>{{ content.title }}</h3>
-        <div class="content-meta">
-          <span class="difficulty">난이도: {{ content.difficulty || '보통' }}</span>
-          <span class="word-count">{{ content.wordCount || '약 50' }}단어</span>
-        </div>
-        <p class="content-preview">{{ content.content.substring(0, 100) }}...</p>
-        <button class="start-btn">연습 시작</button>
+      <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer" @click="goToExamCategorySelection()">
+        <div class="text-5xl mb-4 text-center">🎓</div>
+        <h3 class="text-xl font-semibold text-primary-600 mb-2 text-center">시험</h3>
+        <p class="text-gray-600 text-center">타자 연습과 퀴즈가 결합된 종합 시험에 도전해보세요</p>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-/* home-container는 Tailwind 클래스로 대체됨
-   max-w-6xl: 최대 너비 1152px (tailwind에서 6xl은 72rem = 1152px)
-   mx-auto: 가운데 정렬 (margin: 0 auto)
-   px-4: 좌우 패딩 (padding-left, padding-right: 1rem)
-   py-8: 상하 패딩 (padding-top, padding-bottom: 2rem)
-*/
 
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #333;
-}
-
-.subtitle {
-  font-size: 1.2rem;
-  color: #666;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-.feature-card {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.feature-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.feature-card h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: #333;
-}
-
-.feature-card p {
-  color: #666;
-  line-height: 1.5;
-}
-
-h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin: 2rem 0 1.5rem;
-  color: #333;
-}
-
-.content-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-.content-card {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-}
-
-.content-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.content-card h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: #333;
-}
-
-.content-meta {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-}
-
-.difficulty {
-  color: #666;
-}
-
-.word-count {
-  color: #4CAF50;
-  font-weight: 500;
-}
-
-.content-preview {
-  color: #666;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-  flex-grow: 1;
-}
-
-.start-btn {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.75rem 0;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  width: 100%;
-}
-
-.start-btn:hover {
-  background-color: #43a047;
-}
-
-@media (max-width: 768px) {
-  .features {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .content-list {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

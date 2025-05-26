@@ -125,43 +125,55 @@ const goHome = () => {
 </script>
 
 <template>
-    <div class="typing-practice" v-if="currentContent">
-        <div class="card">
-            <div class="card-header">
-                <h2>{{ currentContent.title }}</h2>
-                <div class="timer">
-                    <span class="timer-label">경과 시간:</span>
-                    <span class="timer-value">{{ formattedElapsedTime }}</span>
+    <div class="max-w-3xl mx-auto my-8 px-4" v-if="currentContent">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b border-gray-100">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2 sm:mb-0">{{ currentContent.title }}</h2>
+                <div class="flex items-center gap-2 self-end sm:self-auto">
+                    <span class="text-gray-600">경과 시간:</span>
+                    <span class="bg-gray-100 px-3 py-1 rounded font-medium text-gray-800">{{ formattedElapsedTime }}</span>
                 </div>
             </div>
             
-            <div class="progress-bar">
-                <div class="progress-fill" :style="{ width: `${progress}%` }"></div>
+            <div class="w-full h-1.5 bg-gray-100">
+                <div class="h-full bg-primary-500 transition-all duration-300" :style="{ width: `${progress}%` }"></div>
             </div>
             
-            <div class="text-display">
-                <span v-for="(item, index) in highlightedText" :key="index" :class="item.status">
+            <div class="w-full p-6 my-4 bg-gray-50 font-mono text-lg leading-relaxed whitespace-pre-wrap">
+                <span 
+                    v-for="(item, index) in highlightedText" 
+                    :key="index"
+                    :class="{
+                        'text-secondary-600': item.status === 'correct',
+                        'text-red-600 bg-red-50 line-through': item.status === 'incorrect',
+                        'text-gray-400': item.status === 'default'
+                    }"
+                >
                     {{ item.char }}
                 </span>
             </div>
             
             <textarea 
                 v-model="typedText" 
-                class="typing-input" 
+                class="w-full mx-4 sm:mx-6 mb-6 p-4 border-2 border-gray-200 rounded-lg font-mono text-base resize-none focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
                 placeholder="여기에 입력하세요..." 
                 :disabled="isFinished"
                 @input="startTimer" 
                 rows="5"
                 autofocus
+                style="width: calc(100% - 2rem); margin: 0 1rem;"
             ></textarea>
             
-            <div class="button-group">
-                <button @click="goHome" class="btn btn-secondary">
-                    <span class="btn-icon">←</span> 홈으로
+            <div class="flex justify-between px-4 sm:px-6 pb-6">
+                <button 
+                    @click="goHome" 
+                    class="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md transition-colors"
+                >
+                    <span>←</span> 홈으로
                 </button>
                 <button 
                     @click="finishPractice" 
-                    class="btn btn-primary"
+                    class="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-colors disabled:bg-primary-300 disabled:cursor-not-allowed"
                     :disabled="!isTypingStarted || isFinished"
                 >
                     연습 완료
@@ -169,203 +181,13 @@ const goHome = () => {
             </div>
         </div>
     </div>
-    <div v-else class="loading-container">
-        <div class="loading-card">
+    <div v-else class="flex justify-center items-center min-h-[300px]">
+        <div class="bg-white p-8 rounded-lg shadow-md text-center text-gray-600">
             <p>콘텐츠를 불러오는 중...</p>
         </div>
     </div>
 </template>
 
 <style scoped>
-.typing-practice {
-    max-width: 800px;
-    margin: 2rem auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.card {
-    width: 100%;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-}
-
-.card-header {
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-}
-
-.timer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
-}
-
-.timer-label {
-    color: #666;
-}
-
-.timer-value {
-    font-weight: 600;
-    color: #333;
-    background-color: #f5f5f5;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 6px;
-    background-color: #f0f0f0;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background-color: #4CAF50;
-    transition: width 0.3s ease;
-}
-
-.text-display {
-    width: 100%;
-    padding: 1.5rem 2rem;
-    margin: 1rem 0;
-    background-color: #f9f9f9;
-    font-size: 1.2rem;
-    line-height: 1.8;
-    white-space: pre-wrap;
-    font-family: 'Courier New', Courier, monospace;
-    border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.text-display .correct {
-    color: #2e7d32;
-}
-
-.text-display .incorrect {
-    color: #d32f2f;
-    background-color: #ffebee;
-    text-decoration: line-through;
-    border-radius: 2px;
-}
-
-.text-display .default {
-    color: #9e9e9e;
-}
-
-.typing-input {
-    width: calc(100% - 4rem);
-    margin: 0 2rem 1.5rem;
-    padding: 1rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    resize: none;
-    font-family: 'Courier New', Courier, monospace;
-    transition: border-color 0.2s ease;
-}
-
-.typing-input:focus {
-    outline: none;
-    border-color: #4CAF50;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-}
-
-.button-group {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 2rem 1.5rem;
-}
-
-.btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.btn-primary {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #43a047;
-}
-
-.btn-primary:disabled {
-    background-color: #a5d6a7;
-    cursor: not-allowed;
-}
-
-.btn-secondary {
-    background-color: #f5f5f5;
-    color: #333;
-}
-
-.btn-secondary:hover {
-    background-color: #e0e0e0;
-}
-
-.btn-icon {
-    font-size: 1.1rem;
-}
-
-.loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 300px;
-}
-
-.loading-card {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    color: #666;
-}
-
-@media (max-width: 768px) {
-    .card-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
-    }
-    
-    .timer {
-        align-self: flex-end;
-    }
-    
-    .typing-input {
-        width: calc(100% - 2rem);
-        margin: 0 1rem 1rem;
-    }
-    
-    .button-group {
-        padding: 0 1rem 1rem;
-    }
-}
+/* Tailwind CSS로 스타일 대체 - 인라인 클래스 사용 */
 </style>

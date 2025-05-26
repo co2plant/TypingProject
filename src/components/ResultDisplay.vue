@@ -70,47 +70,66 @@ const tryAgain = () => {
 </script>
 
 <template>
-    <div class="result-container">
-      <div class="result-card">
-        <div class="card-header">
-          <h2>타자 연습 결과</h2>
+    <div class="max-w-3xl mx-auto my-8 px-4">
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="py-8 px-6 text-center border-b border-gray-100">
+          <h2 class="text-2xl font-bold text-gray-800">타자 연습 결과</h2>
         </div>
         
-        <div class="stats-container">
-          <div class="stat-card">
-            <div class="stat-icon">⚡</div>
-            <div class="stat-value">{{ results.wpm }} WPM</div>
-            <div class="stat-label" :style="{ color: speedRating.color }">{{ speedRating.label }}</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+          <div class="bg-gray-50 p-6 rounded-lg flex flex-col items-center">
+            <div class="text-3xl mb-2">⚡</div>
+            <div class="text-2xl font-bold text-gray-800 mb-1">{{ results.wpm }} WPM</div>
+            <div :class="{
+              'text-amber-500': speedRating.label === '초보',
+              'text-green-500': speedRating.label === '평균' || speedRating.label === '양호',
+              'text-primary-500': speedRating.label === '빠름',
+              'text-purple-600': speedRating.label === '전문가'
+            }" class="font-medium">
+              {{ speedRating.label }}
+            </div>
           </div>
           
-          <div class="stat-card">
-            <div class="stat-icon">✓</div>
-            <div class="stat-value">{{ results.accuracy }}%</div>
-            <div class="stat-label" :style="{ color: accuracyRating.color }">{{ accuracyRating.label }}</div>
+          <div class="bg-gray-50 p-6 rounded-lg flex flex-col items-center">
+            <div class="text-3xl mb-2">✓</div>
+            <div class="text-2xl font-bold text-gray-800 mb-1">{{ results.accuracy }}%</div>
+            <div :class="{
+              'text-amber-500': accuracyRating.label === '개선 필요',
+              'text-green-500': accuracyRating.label === '양호' || accuracyRating.label === '매우 좋음',
+              'text-primary-500': accuracyRating.label === '우수'
+            }" class="font-medium">
+              {{ accuracyRating.label }}
+            </div>
           </div>
           
-          <div class="stat-card">
-            <div class="stat-icon">⏱️</div>
-            <div class="stat-value">{{ results.time.toFixed(1) }}초</div>
-            <div class="stat-label">총 시간</div>
+          <div class="bg-gray-50 p-6 rounded-lg flex flex-col items-center">
+            <div class="text-3xl mb-2">⏱️</div>
+            <div class="text-2xl font-bold text-gray-800 mb-1">{{ results.time.toFixed(1) }}초</div>
+            <div class="text-gray-600 font-medium">총 시간</div>
           </div>
         </div>
         
-        <div class="analysis-section">
-          <h3>성능 분석</h3>
-          <p>
-            당신은 <span class="highlight">{{ results.wpm }} 분당 단어</span>의 속도로 타자를 쳤으며, 
-            정확도는 <span class="highlight">{{ results.accuracy }}%</span> 입니다.
+        <div class="mx-6 mb-6 p-6 bg-gray-50 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">성능 분석</h3>
+          <p class="mb-3 text-gray-700 leading-relaxed">
+            당신은 <span class="font-semibold text-secondary-600">{{ results.wpm }} 분당 단어</span>의 속도로 타자를 쳤으며, 
+            정확도는 <span class="font-semibold text-secondary-600">{{ results.accuracy }}%</span> 입니다.
           </p>
-          <p>{{ performanceMessage }}</p>
+          <p class="text-gray-700 leading-relaxed">{{ performanceMessage }}</p>
         </div>
         
-        <div class="button-group">
-          <button @click="goHome" class="btn btn-secondary">
-            <span class="btn-icon">🏠</span> 홈으로
+        <div class="flex flex-col md:flex-row justify-between gap-4 px-6 pb-6">
+          <button 
+            @click="goHome"
+            class="flex items-center justify-center gap-2 px-5 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-lg transition-colors"
+          >
+            <span>🏠</span> 홈으로
           </button>
-          <button @click="tryAgain" class="btn btn-primary">
-            <span class="btn-icon">🔄</span> 다시 시도
+          <button
+            @click="tryAgain" 
+            class="flex items-center justify-center gap-2 px-5 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors"
+          >
+            <span>🔄</span> 다시 시도
           </button>
         </div>
       </div>
@@ -118,152 +137,5 @@ const tryAgain = () => {
   </template>
 
 <style scoped>
-.result-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.result-card {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-}
-
-.card-header {
-  padding: 2rem;
-  text-align: center;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.card-header h2 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding: 2rem;
-}
-
-.stat-card {
-  background-color: #f9f9f9;
-  padding: 1.5rem;
-  border-radius: 8px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.stat-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.stat-value {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 0.25rem;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.analysis-section {
-  padding: 0 2rem 2rem;
-  background-color: #f9f9f9;
-  margin: 0 2rem 2rem;
-  border-radius: 8px;
-}
-
-.analysis-section h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 1rem 0;
-  color: #333;
-}
-
-.analysis-section p {
-  margin: 0.75rem 0;
-  line-height: 1.6;
-  color: #555;
-}
-
-.highlight {
-  font-weight: 600;
-  color: #4CAF50;
-}
-
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 2rem 2rem;
-}
-
-.btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.btn-primary {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #43a047;
-}
-
-.btn-secondary {
-  background-color: #f5f5f5;
-  color: #333;
-}
-
-.btn-secondary:hover {
-  background-color: #e0e0e0;
-}
-
-.btn-icon {
-  font-size: 1.1rem;
-}
-
-@media (max-width: 768px) {
-  .stats-container {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .analysis-section {
-    margin: 0 1rem 1.5rem;
-    padding: 0 1rem 1.5rem;
-  }
-  
-  .button-group {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0 1.5rem 1.5rem;
-  }
-  
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
+/* Tailwind CSS로 스타일 대체 - 인라인 클래스 사용 */
 </style>
