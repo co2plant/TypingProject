@@ -44,14 +44,12 @@ import quizData from '@/data/quizData.json'
 
 const router = useRouter()
 
-// 고유한 카테고리 리스트 추출
 const categories = computed(() => {
   const uniqueCategories = new Set()
   quizData.forEach(quiz => uniqueCategories.add(quiz.category))
   return Array.from(uniqueCategories)
 })
 
-// 카테고리별 설명 (실제로는 DB나 별도 데이터에서 가져올 수 있음)
 const getCategoryDescription = (category) => {
   const descriptions = {
     '컴퓨터 과학': '컴퓨터 과학의 기본 개념과 이론에 관한 문제',
@@ -62,12 +60,10 @@ const getCategoryDescription = (category) => {
   return descriptions[category] || `${category} 관련 문제`
 }
 
-// 카테고리별 문제 개수
 const getCategoryQuestionCount = (category) => {
   return quizData.filter(quiz => quiz.category === category).length
 }
 
-// 카테고리 선택 시 해당 퀴즈 페이지로 이동
 const selectCategory = (category) => {
   router.push({
     name: 'quiz',
@@ -75,12 +71,10 @@ const selectCategory = (category) => {
   })
 }
 
-// 홈으로 돌아가기
 const goHome = () => {
   router.push({ name: 'home' })
 }
 </script>
 
 <style scoped>
-/* Tailwind CSS로 스타일링 */
 </style>
