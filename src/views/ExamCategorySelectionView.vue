@@ -43,13 +43,11 @@ export default {
   },
   computed: {
     uniqueCategories() {
-      // 중복 없는 카테고리 목록 반환
       return [...new Set(this.examData.map(exam => exam.category))];
     }
   },
   methods: {
     selectCategory(category) {
-      // 선택한 카테고리로 이동
       this.$router.push({ 
         name: 'exam-list', 
         params: { category: encodeURIComponent(category) } 
@@ -65,7 +63,6 @@ export default {
       return categoryDescriptions[category] || '이 카테고리에 대한 시험입니다.';
     },
     getExamCount(category) {
-      // 해당 카테고리의 시험 수 계산
       return this.examData.filter(exam => exam.category === category).length;
     }
   }

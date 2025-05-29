@@ -13,14 +13,14 @@ const typedText = ref('')
 const startTime = ref(null)
 const endTime = ref(null)
 const timerInterval = ref(null)
-const elapsedTime = ref(0) // 초 단위 경과 시간
-const progress = ref(0) // 진행률 (0-100)
+const elapsedTime = ref(0) 
+const progress = ref(0) 
 
-// 입력 상태 관리
+
 const isTypingStarted = ref(false)
 const isFinished = ref(false)
 
-// 현재 콘텐츠 로드
+
 onMounted(() => {
     contentId.value = route.params.contentId
     const foundContent = typingContents.find(c => c.id === contentId.value)
@@ -28,12 +28,11 @@ onMounted(() => {
         currentContent.value = foundContent
         originalText.value = foundContent.content
     } else {
-        // 콘텐츠 못 찾으면 홈으로 리다이렉트 또는 에러 처리
+        
         router.push({ name: 'home' })
     }
 })
 
-// 타이머 시작
 const startTimer = () => {
     if (!isTypingStarted.value) {
         isTypingStarted.value = true
@@ -44,7 +43,6 @@ const startTimer = () => {
     }
 }
 
-// 타이머 중지
 const stopTimer = () => {
     if (timerInterval.value) {
         clearInterval(timerInterval.value)
@@ -53,28 +51,25 @@ const stopTimer = () => {
     endTime.value = Date.now()
 }
 
-// 입력 처리 및 완료 확인
 watch(typedText, (newValue) => {
     if (!isTypingStarted.value && newValue.length > 0) {
         startTimer()
     }
 
-    // 진행률 업데이트
     progress.value = Math.floor((newValue.length / originalText.value.length) * 100)
 
     if (newValue.length >= originalText.value.length) {
-        typedText.value = newValue.substring(0, originalText.value.length) // 입력 길이 제한
+        typedText.value = newValue.substring(0, originalText.value.length)
         finishPractice()
     }
 })
 
-// 연습 완료 처리
 const finishPractice = () => {
-    if (isFinished.value) return // 중복 실행 방지
+    if (isFinished.value) return 
     isFinished.value = true
     stopTimer()
 
-    const finalElapsedTime = (endTime.value - startTime.value) / 1000 // 초 단위
+    const finalElapsedTime = (endTime.value - startTime.value) / 1000 
     const typedWords = typedText.value.trim().split(/\s+/).length
     const wpm = Math.round((typedWords / finalElapsedTime) * 60) || 0
 
@@ -86,23 +81,21 @@ const finishPractice = () => {
     }
     const accuracy = Math.round((correctChars / originalText.value.length) * 100) || 0
 
-    // 결과 페이지로 이동 (쿼리 파라미터 사용)
     router.push({
         name: 'result',
         query: {
             wpm: wpm,
             accuracy: accuracy,
-            time: finalElapsedTime.toFixed(2) // 소수점 2자리까지
+            time: finalElapsedTime.toFixed(2) 
         }
     })
 }
 
-// 계산된 속성: 현재까지 입력된 텍스트와 원본 텍스트 비교 시각화
 const highlightedText = computed(() => {
     if (!originalText.value) return []
     const chars = []
     for (let i = 0; i < originalText.value.length; i++) {
-        let status = 'default' // 아직 입력 안됨
+        let status = 'default' 
         if (i < typedText.value.length) {
             status = typedText.value[i] === originalText.value[i] ? 'correct' : 'incorrect'
         }
@@ -111,14 +104,12 @@ const highlightedText = computed(() => {
     return chars
 })
 
-// 경과 시간을 분:초 형식으로 변환
 const formattedElapsedTime = computed(() => {
     const minutes = Math.floor(elapsedTime.value / 60)
     const seconds = elapsedTime.value % 60
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
 })
 
-// 홈으로 돌아가기
 const goHome = () => {
     router.push({ name: 'home' })
 }
@@ -189,5 +180,4 @@ const goHome = () => {
 </template>
 
 <style scoped>
-/* Tailwind CSS로 스타일 대체 - 인라인 클래스 사용 */
 </style>

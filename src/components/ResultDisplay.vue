@@ -19,7 +19,6 @@ onMounted(() => {
   }
 })
 
-// 속도 등급 계산
 const speedRating = computed(() => {
   const wpm = results.value.wpm
   if (wpm < 30) return { label: '초보', color: '#ff9800' }
@@ -29,7 +28,6 @@ const speedRating = computed(() => {
   return { label: '전문가', color: '#9c27b0' }
 })
 
-// 정확도 등급 계산
 const accuracyRating = computed(() => {
   const accuracy = results.value.accuracy
   if (accuracy < 80) return { label: '개선 필요', color: '#ff9800' }
@@ -38,7 +36,6 @@ const accuracyRating = computed(() => {
   return { label: '우수', color: '#2196f3' }
 })
 
-// 성능 분석 메시지
 const performanceMessage = computed(() => {
   const { wpm, accuracy } = results.value
   let message = ''
@@ -127,7 +124,7 @@ const tryAgain = () => {
           </button>
           <button
             @click="tryAgain" 
-            class="flex items-center justify-center gap-2 px-5 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors"
+            class="flex items-center justify-center gap-2 px-5 py-3 bg-primary-500 hover:bg-primary-600 text-gray-800 font-medium rounded-lg transition-colors"
           >
             <span>🔄</span> 다시 시도
           </button>

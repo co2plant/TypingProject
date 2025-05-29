@@ -35,8 +35,8 @@ const selectContent = (contentId) => {
 </script>
 
 <template>
-    <div class="max-w-2xl mx-auto my-8 p-6 bg-white rounded-xl shadow-md">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-center mb-12 text-4xl font-bold text-primary-700">
             {{ props.filterCategory ? `${props.filterCategory} 학습 콘텐츠` : '학습 콘텐츠 선택' }}
         </h2>
         
@@ -52,12 +52,12 @@ const selectContent = (contentId) => {
                 {{ category }}
             </h3>
             
-            <ul class="space-y-2">
+            <ul class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <li 
                     v-for="content in categoryContents" 
                     :key="content.id" 
                     @click="selectContent(content.id)"
-                    class="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 hover:border-primary-300 transition-all"
+                    class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
                 >
                     {{ content.title }}
                 </li>
