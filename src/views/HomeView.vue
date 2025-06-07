@@ -12,7 +12,7 @@ const goToQuizCategorySelection = () => {
 }
 
 const goToExamCategorySelection = () => {
-  router.push({ name: 'exam-categories' })
+  router.push({ name: 'exam-category-selection' })
 }
 </script>
 

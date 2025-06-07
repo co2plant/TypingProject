@@ -18,7 +18,7 @@
             <p class="text-sm text-gray-600">{{ getCategoryDescription(category) }}</p>
             <div class="flex justify-between items-center mt-4">
                 <span class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full">
-                {{ getCategoryQuestionCount(category) }}개의 시험험
+                {{ getCategoryQuestionCount(category) }}개의 시험
                 </span>
                 <span class="text-primary-600">&rarr;</span>
             </div>

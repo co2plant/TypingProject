@@ -26,11 +26,10 @@ const router = createRouter({
       component: CategorySelectionView
     },
     {
-      // 특정 카테고리의 콘텐츠 목록 페이지 경로
       path: '/category/:categoryName',
       name: 'category-content',
       component: CategoryContentView,
-      props: true // 라우트 파라미터 categoryName을 props로 전달
+      props: true
     },
     {
       path: '/practice/:contentId',
@@ -55,13 +54,13 @@ const router = createRouter({
       component: QuizResultView
     },
     {
-      path: '/quizCategorySelection',
+      path: '/quiz/categories',
       name: 'quiz-category-selection',
       component: QuizCategorySelectionView
     },
     {
-      path: '/exam-categories',
-      name: 'exam-categories',
+      path: '/exam/categories',
+      name: 'exam-category-selection',
       component: ExamCategorySelectionView
     },
     {
