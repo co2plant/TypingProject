@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PracticeView from '../views/PracticeView.vue'
 import ResultView from '../views/ResultView.vue'
-import CategorySelectionView from '../views/CategorySelectionView.vue' // 추가
-import CategoryContentView from '../views/CategoryContentView.vue' // 추가
+import CategorySelectionView from '../views/PracticeCategorySelectionView.vue'
+import CategoryContentView from '../views/PracticeCategoryContentView.vue'
 import QuizView from '../views/QuizView.vue'
 import QuizResultView from '../views/QuizResultView.vue'
-import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue' // 추가
+import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue'
 import ExamCategorySelectionView from '../views/ExamCategorySelectionView.vue'
 import ExamListView from '../views/ExamListView.vue'
 import ExamView from '../views/ExamView.vue'
@@ -21,14 +21,14 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/categories',
+      path: '/practice/categories',
       name: 'category-selection',
-      component: CategorySelectionView
+      component: PracticeCategorySelectionView
     },
     {
-      path: '/category/:categoryName',
+      path: '/practice/categories/:categoryName',
       name: 'category-content',
-      component: CategoryContentView,
+      component: PracticeCategoryContentView,
       props: true
     },
     {
@@ -38,7 +38,7 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/result',
+      path: '/practice/result',
       name: 'result',
       component: ResultView
     },
@@ -64,13 +64,13 @@ const router = createRouter({
       component: ExamCategorySelectionView
     },
     {
-      path: '/exam-list/:category',
+      path: '/exam/:categories',
       name: 'exam-list',
       component: ExamListView,
       props: true
     },
     {
-      path: '/exam/:examId',
+      path: '/exam/:contentId',
       name: 'exam',
       component: ExamView,
       props: true
