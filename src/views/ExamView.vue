@@ -135,197 +135,161 @@
   </div>
 </template>
 
-<script>
-import examData from '@/data/examData.json';
+<script setup>
+import { ref, computed, onMounted, nextTick } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import examData from '@/data/examData.json'
 
-export default {
-  name: 'ExamView',
-  props: {
-    examId: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {
-      exam: null,
-      started: false,
-      examPhase: 'typing', // typing, quiz, completed
-      
-      // 타이핑 관련 데이터
-      typedText: '',
-      typingStartTime: null,
-      typingEndTime: null,
-      typingElapsedTime: 0,
-      typingTimer: null,
-      typingCompleted: false,
-      typingAccuracy: 100,
-      
-      // 퀴즈 관련 데이터
-      currentQuestionIndex: 0,
-      selectedAnswer: '',
-      quizStartTime: null,
-      quizEndTime: null,
-      quizElapsedTime: 0,
-      quizTimer: null,
-      userAnswers: [],
-      correctAnswers: 0
-    };
-  },
-  computed: {
-    currentQuestion() {
-      if (!this.exam || !this.exam.questions || this.currentQuestionIndex >= this.exam.questions.length) {
-        return null;
-      }
-      return this.exam.questions[this.currentQuestionIndex];
-    }
-  },
-  created() {
-    // 선택한 시험 데이터 가져오기
-    this.exam = examData.find(exam => exam.id === this.examId);
-    
-    if (!this.exam) {
-      // 잘못된 시험 ID인 경우 카테고리 목록으로 리다이렉트
-      this.$router.push({ name: 'exam-categories' });
-    }
-  },
-  methods: {
-    startExam() {
-      this.started = true;
-      this.typingStartTime = new Date();
-      
-      // 타이머 시작
-      this.typingTimer = setInterval(() => {
-        this.typingElapsedTime = Math.floor((new Date() - this.typingStartTime) / 1000);
-      }, 1000);
-      
-      // 텍스트 영역에 포커스
-      this.$nextTick(() => {
-        this.$refs.typingInput.focus();
-      });
-    },
-    
-    checkTyping() {
-      const text = this.exam.typingContent;
-      const typed = this.typedText;
-      
-      // 정확도 계산
-      let correctChars = 0;
-      const minLength = Math.min(text.length, typed.length);
-      
-      for (let i = 0; i < minLength; i++) {
-        if (text[i] === typed[i]) {
-          correctChars++;
-        }
-      }
-      
-      this.typingAccuracy = typed.length > 0 
-        ? Math.floor((correctChars / typed.length) * 100) 
-        : 100;
-      
-      // 타이핑이 완료되었는지 확인
-      if (typed.length >= text.length) {
-        this.completeTypingPhase();
-      }
-    },
-    
-    completeTypingPhase() {
-      // 타이핑 단계 완료
-      this.typingCompleted = true;
-      this.typingEndTime = new Date();
-      clearInterval(this.typingTimer);
-    },
-    
-    startQuizPhase() {
-      this.examPhase = 'quiz';
-      this.quizStartTime = new Date();
-      
-      // 퀴즈 타이머 시작
-      this.quizTimer = setInterval(() => {
-        this.quizElapsedTime = Math.floor((new Date() - this.quizStartTime) / 1000);
-      }, 1000);
-    },
-    
-    selectAnswer(option) {
-      this.selectedAnswer = option;
-    },
-    
-    nextQuestion() {
-      // 사용자 답변 저장
-      this.userAnswers.push({
-        question: this.currentQuestion.question,
-        userAnswer: this.selectedAnswer,
-        correctAnswer: this.currentQuestion.answer,
-        isCorrect: this.selectedAnswer === this.currentQuestion.answer
-      });
-      
-      if (this.selectedAnswer === this.currentQuestion.answer) {
-        this.correctAnswers++;
-      }
-      
-      // 다음 질문으로
-      if (this.currentQuestionIndex < this.exam.questions.length - 1) {
-        this.currentQuestionIndex++;
-        this.selectedAnswer = '';
-      } else {
-        this.completeExam();
-      }
-    },
-    
-    completeExam() {
-      this.examPhase = 'completed';
-      this.quizEndTime = new Date();
-      clearInterval(this.quizTimer);
-    },
-    
-    showResult() {
-      // 결과 데이터 저장 및 결과 페이지로 이동
-      const typingWPM = this.calculateWPM(
-        this.exam.typingContent.length,
-        this.typingElapsedTime
-      );
-      
-      const resultData = {
-        examId: this.examId,
-        examTitle: this.exam.title,
-        typing: {
-          accuracy: this.typingAccuracy,
-          wpm: typingWPM,
-          elapsedTime: this.typingElapsedTime
-        },
-        quiz: {
-          correctCount: this.correctAnswers,
-          totalQuestions: this.exam.questions.length,
-          score: Math.floor((this.correctAnswers / this.exam.questions.length) * 100),
-          elapsedTime: this.quizElapsedTime,
-          answers: this.userAnswers
-        },
-        totalScore: Math.floor(
-          (this.typingAccuracy * 0.3) + 
-          ((this.correctAnswers / this.exam.questions.length) * 100 * 0.7)
-        )
-      };
-      
-      // 결과 데이터를 로컬 스토리지에 임시 저장
-      localStorage.setItem('examResult', JSON.stringify(resultData));
-      
-      // 결과 페이지로 이동
-      this.$router.push({ name: 'exam-result' });
-    },
-    
-    calculateWPM(charCount, seconds) {
-      // 평균적으로 5글자를 1단어로 계산
-      const words = charCount / 5;
-      const minutes = seconds / 60;
-      
-      return Math.floor(words / minutes);
-    },
-    
-    formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = seconds % 60;
-      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
+// examId는 라우트 파라미터에서 가져옴
+const route = useRoute()
+const router = useRouter()
+const examId = computed(() => route.params.examId || route.params.id || '')
+
+const exam = ref(null)
+const started = ref(false)
+const examPhase = ref('typing') // typing, quiz, completed
+
+// 타이핑 관련 데이터
+const typedText = ref('')
+const typingStartTime = ref(null)
+const typingEndTime = ref(null)
+const typingElapsedTime = ref(0)
+const typingTimer = ref(null)
+const typingCompleted = ref(false)
+const typingAccuracy = ref(100)
+const typingInput = ref(null)
+
+// 퀴즈 관련 데이터
+const currentQuestionIndex = ref(0)
+const selectedAnswer = ref('')
+const quizStartTime = ref(null)
+const quizEndTime = ref(null)
+const quizElapsedTime = ref(0)
+const quizTimer = ref(null)
+const userAnswers = ref([])
+const correctAnswers = ref(0)
+
+const currentQuestion = computed(() => {
+  if (!exam.value || !exam.value.questions || currentQuestionIndex.value >= exam.value.questions.length) {
+    return null
   }
-};
+  return exam.value.questions[currentQuestionIndex.value]
+})
+
+onMounted(() => {
+  exam.value = examData.find(e => e.id === examId.value)
+  if (!exam.value) {
+    router.push({ name: 'exam-categories' })
+  }
+})
+
+function startExam() {
+  started.value = true
+  typingStartTime.value = new Date()
+  typingTimer.value = setInterval(() => {
+    typingElapsedTime.value = Math.floor((new Date() - typingStartTime.value) / 1000)
+  }, 1000)
+  nextTick(() => {
+    typingInput.value?.focus()
+  })
+}
+
+function checkTyping() {
+  const text = exam.value.typingContent
+  const typed = typedText.value
+  let correctChars = 0
+  const minLength = Math.min(text.length, typed.length)
+  for (let i = 0; i < minLength; i++) {
+    if (text[i] === typed[i]) correctChars++
+  }
+  typingAccuracy.value = typed.length > 0 
+    ? Math.floor((correctChars / typed.length) * 100) 
+    : 100
+  if (typed.length >= text.length) {
+    completeTypingPhase()
+  }
+}
+
+function completeTypingPhase() {
+  typingCompleted.value = true
+  typingEndTime.value = new Date()
+  clearInterval(typingTimer.value)
+}
+
+function startQuizPhase() {
+  examPhase.value = 'quiz'
+  quizStartTime.value = new Date()
+  quizTimer.value = setInterval(() => {
+    quizElapsedTime.value = Math.floor((new Date() - quizStartTime.value) / 1000)
+  }, 1000)
+}
+
+function selectAnswer(option) {
+  selectedAnswer.value = option
+}
+
+function nextQuestion() {
+  userAnswers.value.push({
+    question: currentQuestion.value.question,
+    userAnswer: selectedAnswer.value,
+    correctAnswer: currentQuestion.value.answer,
+    isCorrect: selectedAnswer.value === currentQuestion.value.answer
+  })
+  if (selectedAnswer.value === currentQuestion.value.answer) {
+    correctAnswers.value++
+  }
+  if (currentQuestionIndex.value < exam.value.questions.length - 1) {
+    currentQuestionIndex.value++
+    selectedAnswer.value = ''
+  } else {
+    completeExam()
+  }
+}
+
+function completeExam() {
+  examPhase.value = 'completed'
+  quizEndTime.value = new Date()
+  clearInterval(quizTimer.value)
+}
+
+function showResult() {
+  const typingWPM = calculateWPM(
+    exam.value.typingContent.length,
+    typingElapsedTime.value
+  )
+  const resultData = {
+    examId: examId.value,
+    examTitle: exam.value.title,
+    typing: {
+      accuracy: typingAccuracy.value,
+      wpm: typingWPM,
+      elapsedTime: typingElapsedTime.value
+    },
+    quiz: {
+      correctCount: correctAnswers.value,
+      totalQuestions: exam.value.questions.length,
+      score: Math.floor((correctAnswers.value / exam.value.questions.length) * 100),
+      elapsedTime: quizElapsedTime.value,
+      answers: userAnswers.value
+    },
+    totalScore: Math.floor(
+      (typingAccuracy.value * 0.3) + 
+      ((correctAnswers.value / exam.value.questions.length) * 100 * 0.7)
+    )
+  }
+  localStorage.setItem('examResult', JSON.stringify(resultData))
+  router.push({ name: 'exam-result' })
+}
+
+function calculateWPM(charCount, seconds) {
+  const words = charCount / 5
+  const minutes = seconds / 60
+  return minutes > 0 ? Math.floor(words / minutes) : 0
+}
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+}
 </script>
