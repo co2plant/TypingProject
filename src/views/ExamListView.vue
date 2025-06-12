@@ -39,39 +39,28 @@
   </div>
 </template>
 
-<script>
-import examData from '@/data/examData.json';
+<script setup>
+import { computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import examData from '@/data/examData.json'
 
-export default {
-  name: 'ExamListView',
-  props: {
-    category: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {
-      examData: examData
-    };
-  },
-  computed: {
-    decodedCategory() {
-      return decodeURIComponent(this.category);
-    },
-    filteredExams() {
-      // 선택한 카테고리에 해당하는 시험들만 필터링
-      return this.examData.filter(exam => exam.category === this.decodedCategory);
-    }
-  },
-  methods: {
-    selectExam(examId) {
-      // 선택한 시험으로 이동
-      this.$router.push({ 
-        name: 'exam', 
-        params: { examId } 
-      });
-    }
-  }
-};
+// route에서 category 파라미터 가져오기
+const route = useRoute()
+const router = useRouter()
+
+// category prop을 route에서 가져오도록 변경
+const category = computed(() => route.params.category || '')
+
+const decodedCategory = computed(() => decodeURIComponent(category.value))
+
+const filteredExams = computed(() =>
+  examData.filter(exam => exam.category === decodedCategory.value)
+)
+
+function selectExam(examId) {
+  router.push({
+    name: 'exam',
+    params: { examId }
+  })
+}
 </script>
