@@ -1,13 +1,3 @@
-<script setup>
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-const goToHome = (contentId) => {
-  router.push({ name: 'home' })
-}
-</script>
-
 <template>
   <div class="w-full mx-auto px-4 py-8">
     <div class="header">
@@ -36,6 +26,16 @@ const goToHome = (contentId) => {
     </div>
   </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToHome = (contentId) => {
+  router.push({ name: 'home' })
+}
+</script>
 
 <style scoped>
 .header {

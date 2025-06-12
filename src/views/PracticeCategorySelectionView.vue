@@ -36,6 +36,7 @@
         </div>
     </div>
 </template>
+
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
@@ -70,5 +71,6 @@ const goHome = () => {
   router.push({ name: 'home' })
 }
 </script>
+
 <style scoped>
 </style>

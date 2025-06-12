@@ -1,7 +1,10 @@
+<template>
+    <ResultDisplay />
+</template>
+
 <script setup>
 import ResultDisplay from '@/components/ResultDisplay.vue'
 </script>
 
-<template>
-    <ResultDisplay />
-</template>
+<style scoped>
+</style>

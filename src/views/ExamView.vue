@@ -293,3 +293,6 @@ function formatTime(seconds) {
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
 }
 </script>
+
+<style scoped>
+</style>

@@ -1,3 +1,9 @@
+<template>
+    <div>
+        <ContentList :filter-category="categoryName" />
+    </div>
+</template>
+
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
@@ -10,12 +16,6 @@ onMounted(() => {
     categoryName.value = decodeURIComponent(route.params.categoryName)
 })
 </script>
-
-<template>
-    <div>
-        <ContentList :filter-category="categoryName" />
-    </div>
-</template>
 
 <style scoped>
 </style>
