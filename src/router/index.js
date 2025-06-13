@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PracticeView from '../views/PracticeView.vue'
+import PracticeCategorySelectionView from '../views/PracticeCategorySelectionView.vue'
+import PracticeCategoryContentView from '../views/PracticeCategoryContentView.vue'
 import ResultView from '../views/ResultView.vue'
-import CategorySelectionView from '../views/PracticeCategorySelectionView.vue'
-import CategoryContentView from '../views/PracticeCategoryContentView.vue'
 import QuizView from '../views/QuizView.vue'
 import QuizResultView from '../views/QuizResultView.vue'
 import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue'
@@ -39,7 +39,7 @@ const router = createRouter({
     },
     {
       path: '/practice/result',
-      name: 'result',
+      name: 'practice-result',
       component: ResultView
     },
     {
@@ -49,14 +49,14 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/quiz-result',
+      path: '/quiz/result',
       name: 'quiz-result',
       component: QuizResultView
     },
     {
       path: '/quiz/categories',
       name: 'quiz-category-selection',
-      component: QuizCategorySelectionView
+      component: QuizCategorySelectionView  
     },
     {
       path: '/exam/categories',
