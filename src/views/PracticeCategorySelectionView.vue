@@ -38,9 +38,10 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import typingContents from '@/data/typingContents.json'
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import typingContents from '@/data/typingContents.json';
+import categoryData from '@/data/categoryData.json';
 
 const router = useRouter()
 
@@ -50,12 +51,7 @@ const categories = computed(() => {
 })
 
 const getCategoryDescription = (category) => {
-  const descriptions = {
-    '컴퓨터 과학': '컴퓨터 과학의 기본 개념과 이론에 관한 문제',
-    '네트워크': '네트워크 프로토콜, 아키텍처 및 주요 개념에 관한 문제',
-    '프로그래밍': '다양한 프로그래밍 언어와 개념에 관한 문제',
-    '자격증': '정보처리기사 등 IT 자격증 준비를 위한 문제'
-  }
+  const descriptions = JSON.parse(JSON.stringify(categoryData))
   return descriptions[category] || `${category} 관련 문제`
 }
 
