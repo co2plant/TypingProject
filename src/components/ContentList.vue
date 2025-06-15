@@ -30,7 +30,7 @@ const groupedContents = computed(() => {
 })
 
 const selectContent = (contentId) => {
-    router.push({ name: 'practice', params: { contentId } })
+    router.push({ name: 'practice-content', params: { contentId } })
 }
 </script>
 

@@ -56,7 +56,7 @@ const getCategoryDescription = (category) => {
 }
 
 const selectCategory = (categoryName) => {
-    router.push({ name: 'category-content', params: { categoryName: encodeURIComponent(categoryName) } })
+    router.push({ name: 'practice-category-content', params: { categoryName: encodeURIComponent(categoryName) } })
 }
 
 const getCategoryQuestionCount = (category) => {

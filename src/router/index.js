@@ -7,6 +7,7 @@ import ResultView from '../views/ResultView.vue'
 import QuizView from '../views/QuizView.vue'
 import QuizResultView from '../views/QuizResultView.vue'
 import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue'
+import QuizCategoryContentView from '../views/QuizCategoryContentView.vue'
 import ExamCategorySelectionView from '../views/ExamCategorySelectionView.vue'
 import ExamListView from '../views/ExamListView.vue'
 import ExamView from '../views/ExamView.vue'
@@ -22,18 +23,18 @@ const router = createRouter({
     },
     {
       path: '/practice/categories',
-      name: 'category-selection',
+      name: 'practice-category-list',
       component: PracticeCategorySelectionView
     },
     {
       path: '/practice/categories/:categoryName',
-      name: 'category-content',
+      name: 'practice-category-content',
       component: PracticeCategoryContentView,
       props: true
     },
     {
       path: '/practice/:contentId',
-      name: 'practice',
+      name: 'practice-content',
       component: PracticeView,
       props: true
     },
@@ -43,8 +44,19 @@ const router = createRouter({
       component: ResultView
     },
     {
+      path: '/quiz/categories',
+      name: 'quiz-category-list',
+      component: QuizCategorySelectionView  
+    },
+    {
+      path: '/quiz/categories/:categoryName',
+      name: 'quiz-category-content',
+      component: QuizCategoryContentView,
+      props: true
+    },
+    {
       path: '/quiz/:contentId',
-      name: 'quiz',
+      name: 'quiz-content',
       component: QuizView,
       props: true
     },
@@ -54,24 +66,19 @@ const router = createRouter({
       component: QuizResultView
     },
     {
-      path: '/quiz/categories',
-      name: 'quiz-category-selection',
-      component: QuizCategorySelectionView  
-    },
-    {
       path: '/exam/categories',
-      name: 'exam-category-selection',
+      name: 'exam-category-list',
       component: ExamCategorySelectionView
     },
     {
-      path: '/exam/:categories',
+      path: '/exam/categories/:categgoryName',
       name: 'exam-list',
       component: ExamListView,
       props: true
     },
     {
       path: '/exam/:contentId',
-      name: 'exam',
+      name: 'exam-content',
       component: ExamView,
       props: true
     },
