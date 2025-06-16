@@ -1,21 +1,3 @@
-<script setup>
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-const goToCategorySelection = () => {
-  router.push({ name: 'category-selection' })
-}
-
-const goToQuizCategorySelection = () => {
-  router.push({ name: 'quiz-category-selection' })
-}
-
-const goToExamCategorySelection = () => {
-  router.push({ name: 'exam-category-selection' })
-}
-</script>
-
 <template>
   <div class="container mx-auto px-4 py-8">
     <div class="text-center mb-12">
@@ -44,5 +26,24 @@ const goToExamCategorySelection = () => {
     </div>
   </div>
 </template>
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToCategorySelection = () => {
+  router.push({ name: 'practice-category-list' })
+}
+
+const goToQuizCategorySelection = () => {
+  router.push({ name: 'quiz-category-list' })
+}
+
+const goToExamCategorySelection = () => {
+  router.push({ name: 'exam-category-list' })
+}
+</script>
+<style scoped>
+</style>
 
 

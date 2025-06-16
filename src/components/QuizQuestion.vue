@@ -106,5 +106,4 @@ const checkAnswer = () => {
 </script>
 
 <style scoped>
-/* Tailwind CSS로 스타일링 */
 </style>
