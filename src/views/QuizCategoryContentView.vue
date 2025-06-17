@@ -16,12 +16,12 @@
     </div>
 
     <div class="mt-8 flex justify-between">
-      <router-link 
-        to="/" 
+      <button
+        @click="goHome"
         class="inline-block bg-secondary-500 hover:bg-secondary-600 text-white px-6 py-2 rounded-md transition-colors"
       >
         홈으로 돌아가기
-      </router-link>
+      </button>
     </div>
   </div>
 </template>
@@ -47,5 +47,9 @@ function selectQuiz(contentId) {
     name: 'quiz-content',
     params: { contentId, categoryName: encodeURIComponent(categoryName) }
   })
+}
+
+const goHome = () => {
+  router.push({ name: 'home' })
 }
 </script>

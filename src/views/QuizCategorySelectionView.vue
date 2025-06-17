@@ -62,8 +62,8 @@ const getCategoryQuestionCount = (category) => {
 
 const selectCategory = (category) => {
   router.push({
-    name: 'quiz',
-    params: { contentId: encodeURIComponent(category) }
+    name: 'quiz-category-content',
+    params: { categoryName: encodeURIComponent(category) }
   })
 }
 
