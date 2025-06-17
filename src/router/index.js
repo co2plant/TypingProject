@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import PracticeView from '../views/PracticeView.vue'
 import PracticeCategorySelectionView from '../views/PracticeCategorySelectionView.vue'
 import PracticeCategoryContentView from '../views/PracticeCategoryContentView.vue'
-import ResultView from '../views/ResultView.vue'
+import ResultView from '../views/PracticeResultView.vue'
 import QuizView from '../views/QuizView.vue'
 import QuizResultView from '../views/QuizResultView.vue'
 import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue'
@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: '/practice/result',
       name: 'practice-result',
-      component: ResultView
+      component: PracticeResultView
     },
     {
       path: '/quiz/categories',
@@ -55,7 +55,7 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/quiz/:contentId',
+      path: '/quiz/:categoryName/:contentId',
       name: 'quiz-content',
       component: QuizView,
       props: true

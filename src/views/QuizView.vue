@@ -80,35 +80,27 @@ import quizData from '@/data/quizData.json'
 const route = useRoute()
 const router = useRouter()
 
-const categoryName = ref('')
 const quizQuestions = ref([])
 const currentIndex = ref(0)
 const answers = ref([])
 const quizCompleted = ref(false)
 
-// 데이터 로드
 onMounted(() => {
-  // URL 파라미터에서 카테고리 이름 가져오기
-  const category = decodeURIComponent(route.params.category || '')
-  categoryName.value = category
-  
-  // 해당 카테고리의 퀴즈 문제 필터링
-  quizQuestions.value = quizData.filter(q => q.category === category)
-  
-  // 문제 순서 랜덤화 (선택 사항)
+  const contentId = decodeURIComponent(route.params.contentId || '');
+  const categoryName = decodeURIComponent(route.params.categoryName || '');
+
+  quizQuestions.value = quizData.filter(q => q.category === categoryName)
+
   shuffleQuestions()
   
-  // 각 문제 옵션 순서 랜덤화 (선택 사항)
   randomizeOptions()
 })
 
-// 현재 보여줄 문제
 const currentQuestion = computed(() => {
   if (quizQuestions.value.length === 0) return null
   return quizQuestions.value[currentIndex.value]
 })
 
-// 퀴즈 순서를 섞는 함수
 const shuffleQuestions = () => {
   for (let i = quizQuestions.value.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -116,7 +108,6 @@ const shuffleQuestions = () => {
   }
 }
 
-// 각 퀴즈 옵션 순서를 섞는 함수
 const randomizeOptions = () => {
   quizQuestions.value.forEach(question => {
     for (let i = question.options.length - 1; i > 0; i--) {
@@ -126,12 +117,10 @@ const randomizeOptions = () => {
   })
 }
 
-// 정답 처리
 const handleAnswer = (answerData) => {
   answers.value.push(answerData)
 }
 
-// 다음 문제로 이동
 const nextQuestion = () => {
   if (currentIndex.value < quizQuestions.value.length - 1) {
     currentIndex.value++
@@ -140,7 +129,6 @@ const nextQuestion = () => {
   }
 }
 
-// 퀴즈 다시 풀기
 const retryQuiz = () => {
   currentIndex.value = 0
   answers.value = []
@@ -149,7 +137,6 @@ const retryQuiz = () => {
   randomizeOptions()
 }
 
-// 결과 보기
 const viewResult = () => {
   router.push({ 
     name: 'quiz-result',
@@ -161,18 +148,14 @@ const viewResult = () => {
   })
 }
 
-// 뒤로 가기
 const goBack = () => {
-  router.push({ name: 'quiz-category-selection' })
+  router.go(-1);
 }
 
-// 현재 답변한 문제 수
 const answeredCount = computed(() => answers.value.length)
 
-// 맞춘 문제 수
 const correctCount = computed(() => answers.value.filter(a => a.isCorrect).length)
 </script>
 
 <style scoped>
-/* Tailwind CSS로 스타일링 */
 </style>
