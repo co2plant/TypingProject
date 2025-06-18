@@ -40,22 +40,20 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import examData from '@/data/examData.json'
+import { computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import examData from '@/data/examData.json';
 
-// route에서 category 파라미터 가져오기
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
-// category prop을 route에서 가져오도록 변경
-const category = computed(() => route.params.category || '')
+const category = computed(() => route.params.category || '');
 
-const decodedCategory = computed(() => decodeURIComponent(category.value))
+const decodedCategory = computed(() => decodeURIComponent(category.value));
 
 const filteredExams = computed(() =>
   examData.filter(exam => exam.category === decodedCategory.value)
-)
+);
 
 function selectExam(examId) {
   router.push({

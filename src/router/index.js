@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import PracticeView from '../views/PracticeView.vue'
 import PracticeCategorySelectionView from '../views/PracticeCategorySelectionView.vue'
 import PracticeCategoryContentView from '../views/PracticeCategoryContentView.vue'
-import ResultView from '../views/PracticeResultView.vue'
+import PracticeResultView from '../views/PracticeResultView.vue'
 import QuizView from '../views/QuizView.vue'
 import QuizResultView from '../views/QuizResultView.vue'
 import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue'
@@ -71,7 +71,7 @@ const router = createRouter({
       component: ExamCategorySelectionView
     },
     {
-      path: '/exam/categories/:categgoryName',
+      path: '/exam/categories/:categoryName',
       name: 'exam-list',
       component: ExamListView,
       props: true
