@@ -22,19 +22,19 @@
     </div>
 
     <div class="mt-8 flex justify-between">
-      <router-link 
-        to="/exam-categories" 
+      <button
+        @click="goBack"
         class="inline-block bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md transition-colors"
       >
         카테고리 선택으로 돌아가기
-      </router-link>
+      </button>
       
-      <router-link 
-        to="/" 
+      <button
+        @click="goHome"
         class="inline-block bg-secondary-500 hover:bg-secondary-600 text-white px-6 py-2 rounded-md transition-colors"
       >
         홈으로 돌아가기
-      </router-link>
+      </button>
     </div>
   </div>
 </template>
@@ -54,6 +54,14 @@ const decodedCategory = computed(() => decodeURIComponent(category.value));
 const filteredExams = computed(() =>
   examData.filter(exam => exam.category === decodedCategory.value)
 );
+
+const goBack = () => {
+  router.go(-1);
+}
+
+const goHome = () => {
+  router.push({ name: 'home' })
+}
 
 function selectExam(examId) {
   router.push({
