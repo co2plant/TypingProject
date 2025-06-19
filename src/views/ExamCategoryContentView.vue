@@ -47,9 +47,9 @@ import examData from '@/data/examData.json';
 const route = useRoute();
 const router = useRouter();
 
-const category = computed(() => route.params.category || '');
+const categoryName = computed(() => route.params.categoryName || '');
 
-const decodedCategory = computed(() => decodeURIComponent(category.value));
+const decodedCategory = computed(() => decodeURIComponent(categoryName.value));
 
 const filteredExams = computed(() =>
   examData.filter(exam => exam.category === decodedCategory.value)
@@ -63,10 +63,10 @@ const goHome = () => {
   router.push({ name: 'home' })
 }
 
-function selectExam(examId) {
+function selectExam( contentId ) {
   router.push({
-    name: 'exam',
-    params: { examId }
+    name: 'exam-content',
+    params: {  contentId: contentId, categoryName: encodeURIComponent(categoryName.value) }
   })
 }
 </script>

@@ -9,7 +9,7 @@ import QuizResultView from '../views/QuizResultView.vue'
 import QuizCategorySelectionView from '../views/QuizCategorySelectionView.vue'
 import QuizCategoryContentView from '../views/QuizCategoryContentView.vue'
 import ExamCategorySelectionView from '../views/ExamCategorySelectionView.vue'
-import ExamListView from '../views/ExamListView.vue'
+import ExamCategoryContentView from '../views/ExamCategoryContentView.vue'
 import ExamView from '../views/ExamView.vue'
 import ExamResultView from '../views/ExamResultView.vue'
 
@@ -72,12 +72,12 @@ const router = createRouter({
     },
     {
       path: '/exam/categories/:categoryName',
-      name: 'exam-list',
-      component: ExamListView,
+      name: 'exam-category-content',
+      component: ExamCategoryContentView,
       props: true
     },
     {
-      path: '/exam/:contentId',
+      path: '/exam/:categoryName/:contentId',
       name: 'exam-content',
       component: ExamView,
       props: true

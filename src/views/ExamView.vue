@@ -140,11 +140,9 @@ import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import examData from '@/data/examData.json'
 
-// examId는 라우트 파라미터에서 가져옴
 const route = useRoute()
 const router = useRouter()
-const examId = computed(() => route.params.examId || route.params.id || '')
-
+const examId = computed(() => route.params.contentId || '')
 const exam = ref(null)
 const started = ref(false)
 const examPhase = ref('typing') // typing, quiz, completed
@@ -177,9 +175,12 @@ const currentQuestion = computed(() => {
 })
 
 onMounted(() => {
-  exam.value = examData.find(e => e.id === examId.value)
+  console.log(examId)
+  exam.value = examData.find(e => e.id === examId)
+  
+  console.log(exam)
   if (!exam.value) {
-    router.push({ name: 'exam-categories' })
+    router.go(-1);
   }
 })
 
