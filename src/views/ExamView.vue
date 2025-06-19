@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div v-if="exam" class="container mx-auto px-4 py-8">
     <div v-if="!started" class="text-center">
       <h1 class="text-3xl font-bold text-primary-600 mb-4">{{ exam.title }}</h1>
       <p class="text-gray-600 mb-8">{{ exam.description }}</p>
@@ -11,7 +11,7 @@
         
         <button 
           @click="startExam" 
-          class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-md transition-colors w-full"
+          class=" bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-md transition-colors w-full"
         >
           시험 시작하기
         </button>
@@ -136,13 +136,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick  } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import examData from '@/data/examData.json'
 
 const route = useRoute()
 const router = useRouter()
-const examId = computed(() => route.params.contentId || '')
+const contentId = computed(() => route.params.contentId || '')
 const exam = ref(null)
 const started = ref(false)
 const examPhase = ref('typing') // typing, quiz, completed
@@ -175,13 +175,9 @@ const currentQuestion = computed(() => {
 })
 
 onMounted(() => {
-  console.log(examId)
-  exam.value = examData.find(e => e.id === examId)
-  
-  console.log(exam)
-  if (!exam.value) {
-    router.go(-1);
-  }
+  console.log(contentId.value)
+  exam.value = examData.find(e => e.id === contentId.value);
+  console.log(exam.value)
 })
 
 function startExam() {
@@ -259,7 +255,7 @@ function showResult() {
     typingElapsedTime.value
   )
   const resultData = {
-    examId: examId.value,
+    contentId: contentId.value,
     examTitle: exam.value.title,
     typing: {
       accuracy: typingAccuracy.value,
