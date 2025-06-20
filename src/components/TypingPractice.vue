@@ -82,7 +82,7 @@ const finishPractice = () => {
     const accuracy = Math.round((correctChars / originalText.value.length) * 100) || 0
 
     router.push({
-        name: 'result',
+        name: 'practice-result',
         query: {
             wpm: wpm,
             accuracy: accuracy,
