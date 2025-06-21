@@ -19,48 +19,9 @@
             :style="{ width: `${resultData.totalScore}%` }"
           ></div>
         </div>
-        
-        <div class="text-sm text-gray-500 text-right">
-          타이핑 정확도 30% + 퀴즈 점수 70%
-        </div>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <!-- 타이핑 결과 -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
-          <h3 class="text-xl font-bold text-primary-700 mb-4">타이핑 결과</h3>
-          
-          <div class="flex flex-col space-y-4">
-            <div>
-              <div class="flex justify-between items-center mb-1">
-                <span class="text-gray-600">정확도</span>
-                <span class="font-semibold" :class="getScoreColorClass(resultData.typing.accuracy)">
-                  {{ resultData.typing.accuracy }}%
-                </span>
-              </div>
-              <div class="h-2 bg-gray-200 rounded-full">
-                <div 
-                  class="h-2 rounded-full" 
-                  :class="getScoreColorClass(resultData.typing.accuracy)"
-                  :style="{ width: `${resultData.typing.accuracy}%` }"
-                ></div>
-              </div>
-            </div>
-            
-            <div class="flex justify-between">
-              <div>
-                <div class="text-gray-600 mb-1">타이핑 속도</div>
-                <div class="text-2xl font-semibold">{{ resultData.typing.wpm }} <span class="text-sm text-gray-500">WPM</span></div>
-              </div>
-              
-              <div>
-                <div class="text-gray-600 mb-1">소요 시간</div>
-                <div class="text-2xl font-semibold">{{ formatTime(resultData.typing.elapsedTime) }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
         <!-- 퀴즈 결과 -->
         <div class="bg-white rounded-lg shadow-lg p-6">
           <h3 class="text-xl font-bold text-primary-700 mb-4">퀴즈 결과</h3>

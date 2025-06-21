@@ -9,7 +9,7 @@
           <p class="mb-6">총 {{ exam.questions.length }}개의 객관식 문제로 구성되어 있습니다.</p>
           <button 
             @click="startExam" 
-            class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-md transition-colors w-full"
+            class="inline-block bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md transition-colors w-full"
           >
             시험 시작하기
           </button>
@@ -47,7 +47,7 @@
                 :class="[
                   'px-6 py-2 rounded-md text-white transition-colors',
                   selectedAnswer
-                    ? 'bg-primary-500 hover:bg-primary-600'
+                    ? 'bg-gray-500 hover:bg-gray-600 text-white'
                     : 'bg-gray-400 cursor-not-allowed'
                 ]"
               >
@@ -62,7 +62,7 @@
           <p class="text-gray-600 mb-8">결과를 확인하세요.</p>
           <button 
             @click="showResult"
-            class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-md transition-colors w-full"
+            class="inline-block bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md transition-colors w-full"
           >
             결과 보기
           </button>
@@ -80,7 +80,7 @@ import examData from '@/data/examData.json'
 // examId는 라우트 파라미터에서 가져옴
 const route = useRoute()
 const router = useRouter()
-const examId = computed(() => route.params.examId || route.params.id || '')
+const examId = computed(() => route.params.contentId || route.params.id || '')
 
 const exam = ref(null)
 const examPhase = ref('intro') // intro, quiz, completed
