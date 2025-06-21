@@ -1,12 +1,12 @@
 <template>
   <div class="container mx-auto px-4 py-8">
     <div v-if="resultData">
-      <h1 class="text-3xl font-bold text-primary-600 mb-2">시험 결과</h1>
+      <h1 class="text-3xl font-bold text-green-600 mb-2">시험 결과</h1>
       <h2 class="text-xl text-gray-600 mb-8">{{ resultData.examTitle }}</h2>
       
       <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
         <div class="flex justify-between items-center mb-6">
-          <h3 class="text-2xl font-bold text-primary-700">종합 점수</h3>
+          <h3 class="text-2xl font-bold text-green-700">종합 점수</h3>
           <div class="text-4xl font-bold" :class="getScoreColorClass(resultData.totalScore)">
             {{ resultData.totalScore }}점
           </div>
@@ -24,7 +24,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <!-- 퀴즈 결과 -->
         <div class="bg-white rounded-lg shadow-lg p-6">
-          <h3 class="text-xl font-bold text-primary-700 mb-4">퀴즈 결과</h3>
+          <h3 class="text-xl font-bold text-green-700 mb-4">퀴즈 결과</h3>
           
           <div class="flex flex-col space-y-4">
             <div>
@@ -62,7 +62,7 @@
       
       <!-- 퀴즈 답변 세부 내용 -->
       <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h3 class="text-xl font-bold text-primary-700 mb-4">퀴즈 상세 결과</h3>
+        <h3 class="text-xl font-bold text-green-700 mb-4">퀴즈 상세 결과</h3>
         
         <div class="space-y-4">
           <div 
@@ -94,15 +94,15 @@
       
       <div class="flex justify-between">
         <router-link 
-          :to="`/exam/${resultData.examId}`" 
-          class="inline-block bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md transition-colors"
+          :to="`/exam/${resultData.category}/${resultData.examId}`" 
+          class="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md transition-colors"
         >
           다시 시험보기
         </router-link>
         
         <router-link 
-          to="/exam-categories" 
-          class="inline-block bg-secondary-500 hover:bg-secondary-600 text-white px-6 py-2 rounded-md transition-colors"
+          to="/exam/categories" 
+          class="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md transition-colors"
         >
           다른 시험 선택하기
         </router-link>
@@ -112,8 +112,8 @@
     <div v-else class="text-center py-16">
       <div class="text-2xl text-gray-500 mb-6">결과 데이터를 찾을 수 없습니다.</div>
       <router-link 
-        to="/exam-categories" 
-        class="inline-block bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md transition-colors"
+        to="/exam/categories" 
+        class="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md transition-colors"
       >
         시험 선택하기
       </router-link>
@@ -121,34 +121,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ExamResultView',
-  data() {
-    return {
-      resultData: null
-    };
-  },
-  created() {
-    // 로컬 스토리지에서 시험 결과 데이터 가져오기
-    const storedResult = localStorage.getItem('examResult');
-    
-    if (storedResult) {
-      this.resultData = JSON.parse(storedResult);
-    }
-  },
-  methods: {
-    formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = seconds % 60;
-      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    },
-    getScoreColorClass(score) {
-      if (score >= 90) return 'text-green-600';
-      if (score >= 70) return 'text-primary-600';
-      if (score >= 50) return 'text-yellow-600';
-      return 'text-red-600';
-    }
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const resultData = ref(null)
+
+onMounted(() => {
+  // 로컬 스토리지에서 시험 결과 데이터 가져오기
+  const storedResult = localStorage.getItem('examResult');
+  
+  if (storedResult) {
+    resultData.value = JSON.parse(storedResult);
   }
-};
+});
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+function getScoreColorClass(score) {
+  if (score >= 90) return 'text-green-600';
+  if (score >= 70) return 'text-green-600';
+  if (score >= 50) return 'text-yellow-600';
+  return 'text-red-600';
+}
 </script>

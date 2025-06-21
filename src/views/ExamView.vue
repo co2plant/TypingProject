@@ -146,6 +146,7 @@ function showResult() {
   const quizScore = Math.floor((correctAnswers.value / exam.value.questions.length) * 100)
   const resultData = {
     examId: examId.value,
+    examCategory: exam.value.category,
     examTitle: exam.value.title,
     quiz: {
       correctCount: correctAnswers.value,
