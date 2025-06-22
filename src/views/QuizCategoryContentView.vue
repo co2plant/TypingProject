@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import quizData from '@/data/quizData.json'
 
@@ -45,7 +45,7 @@ const filteredQuizs = computed(() =>
 function selectQuiz(contentId) {
   router.push({
     name: 'quiz-content',
-    params: { contentId, categoryName: encodeURIComponent(categoryName) }
+    params: { contentId, categoryName: categoryName.value }
   })
 }
 

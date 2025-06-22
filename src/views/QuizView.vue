@@ -43,13 +43,13 @@
         <div class="flex justify-center gap-4 mt-8">
           <button 
             @click="retryQuiz" 
-            class="px-4 py-2 bg-white border border-primary-500 text-primary-600 rounded-md hover:bg-primary-50"
+            class="px-4 py-2 bg-white border border-green-500 text-primary-600 rounded-md hover:bg-green-50"
           >
             다시 풀기
           </button>
           <button 
             @click="viewResult" 
-            class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600"
+            class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
           >
             결과 보기
           </button>
@@ -80,6 +80,7 @@ import quizData from '@/data/quizData.json'
 const route = useRoute()
 const router = useRouter()
 
+const categoryName = ref('')
 const quizQuestions = ref([])
 const currentIndex = ref(0)
 const answers = ref([])
@@ -87,12 +88,11 @@ const quizCompleted = ref(false)
 
 onMounted(() => {
   const contentId = decodeURIComponent(route.params.contentId || '');
-  const categoryName = decodeURIComponent(route.params.categoryName || '');
+  categoryName.value = decodeURIComponent(route.params.categoryName || '');
 
-  quizQuestions.value = quizData.filter(q => q.category === categoryName)
+  quizQuestions.value = quizData.filter(q => q.category === categoryName.value)
 
   shuffleQuestions()
-  
   randomizeOptions()
 })
 
@@ -118,7 +118,13 @@ const randomizeOptions = () => {
 }
 
 const handleAnswer = (answerData) => {
-  answers.value.push(answerData)
+  const question = currentQuestion.value
+  answers.value.push({
+    question: question.question,
+    userAnswer: answerData.userAnswer,
+    correctAnswer: question.answer,
+    isCorrect: answerData.isCorrect
+  })
 }
 
 const nextQuestion = () => {
@@ -138,14 +144,15 @@ const retryQuiz = () => {
 }
 
 const viewResult = () => {
-  router.push({ 
-    name: 'quiz-result',
-    query: { 
-      category: categoryName.value,
-      total: quizQuestions.value.length,
-      correct: correctCount.value
-    }
-  })
+  const resultData = {
+    category: categoryName.value,
+    totalQuestions: quizQuestions.value.length,
+    correctCount: correctCount.value,
+    score: Math.round((correctCount.value / quizQuestions.value.length) * 100),
+    answers: answers.value
+  };
+  localStorage.setItem('quizResult', JSON.stringify(resultData));
+  router.push({ name: 'quiz-result' });
 }
 
 const goBack = () => {
