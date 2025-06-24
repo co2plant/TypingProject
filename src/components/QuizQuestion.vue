@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
   questionId: {
@@ -90,6 +90,12 @@ const emit = defineEmits(['answer', 'next'])
 const selectedOption = ref(null)
 const showAnswer = ref(false)
 
+// questionId가 변경될 때마다 상태 초기화
+watch(() => props.questionId, () => {
+  selectedOption.value = null
+  showAnswer.value = false
+})
+
 const isCorrect = computed(() => {
   if (selectedOption.value === null) return false
   return props.options[selectedOption.value] === props.answer
@@ -99,7 +105,7 @@ const checkAnswer = () => {
   showAnswer.value = true
   emit('answer', {
     questionId: props.questionId,
-    selectedOption: props.options[selectedOption.value],
+    userAnswer: props.options[selectedOption.value],
     isCorrect: isCorrect.value
   })
 }
