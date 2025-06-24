@@ -22,13 +22,13 @@
           <span class="text-gray-800">{{ resultData.totalQuestions }}개</span>
           <span class="mx-2 text-gray-400">|</span>
           <span class="text-gray-600">정답:</span>
-          <span class="text-primary-600">{{ resultData.correctCount }}개</span>
+          <span class="text-green-600">{{ resultData.correctCount }}개</span>
         </div>
       </div>
       
       <!-- 퀴즈 답변 세부 내용 -->
       <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h3 class="text-xl font-bold text-primary-700 mb-4">퀴즈 상세 결과</h3>
+        <h3 class="text-xl font-bold text-green-700 mb-4">퀴즈 상세 결과</h3>
         
         <div class="space-y-4">
           <div 
@@ -62,14 +62,14 @@
       <div class="flex flex-col sm:flex-row justify-between gap-4 px-6 pb-6">
         <button 
           @click="retryQuiz" 
-          class="flex items-center justify-center gap-2 px-5 py-3 bg-white border border-primary-500 text-primary-600 hover:bg-primary-50 font-medium rounded-lg transition-colors"
+          class="flex items-center justify-center gap-2 px-5 py-3 bg-white border border-green-500 text-green-600 hover:bg-green-50 font-medium rounded-lg transition-colors"
         >
           <span>🔄</span> 다시 풀기
         </button>
         
         <button
           @click="selectAnotherCategory" 
-          class="flex items-center justify-center gap-2 px-5 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors"
+          class="flex items-center justify-center gap-2 px-5 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors"
         >
           <span>📚</span> 다른 카테고리 선택
         </button>
@@ -79,7 +79,7 @@
       <div class="text-2xl text-gray-500 mb-6">결과 데이터를 찾을 수 없습니다.</div>
       <router-link 
         to="/quiz/categories" 
-        class="inline-block bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md transition-colors"
+        class="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md transition-colors"
       >
         퀴즈 선택하기
       </router-link>
@@ -151,14 +151,14 @@ const resultTextClass = computed(() => {
 const retryQuiz = () => {
   if (!resultData.value) return;
   router.push({
-    name: 'quiz',
+    name: 'QuizView',
     params: { categoryName: encodeURIComponent(resultData.value.category) }
   })
 }
 
 // 다른 카테고리 선택
 const selectAnotherCategory = () => {
-  router.push({ name: 'quiz-category-selection' })
+  router.push({ name: 'quiz-category-list' })
 }
 </script>
 
