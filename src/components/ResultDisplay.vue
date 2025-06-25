@@ -12,7 +12,7 @@
           <div :class="{
             'text-amber-500': speedRating.label === '초보',
             'text-green-500': speedRating.label === '평균' || speedRating.label === '양호',
-            'text-primary-500': speedRating.label === '빠름',
+            'text-green-500': speedRating.label === '빠름',
             'text-purple-600': speedRating.label === '전문가'
           }" class="font-medium">
             {{ speedRating.label }}
@@ -25,7 +25,7 @@
           <div :class="{
             'text-amber-500': accuracyRating.label === '개선 필요',
             'text-green-500': accuracyRating.label === '양호' || accuracyRating.label === '매우 좋음',
-            'text-primary-500': accuracyRating.label === '우수'
+            'text-green-500': accuracyRating.label === '우수'
           }" class="font-medium">
             {{ accuracyRating.label }}
           </div>
@@ -56,7 +56,7 @@
         </button>
         <button
           @click="tryAgain" 
-          class="flex items-center justify-center gap-2 px-5 py-3 bg-primary-500 hover:bg-primary-600 text-gray-800 font-medium rounded-lg transition-colors"
+          class="flex items-center justify-center gap-2 px-5 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors"
         >
           <span>🔄</span> 다시 시도
         </button>

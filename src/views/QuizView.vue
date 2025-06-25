@@ -43,13 +43,13 @@
         <div class="flex justify-center gap-4 mt-8">
           <button 
             @click="retryQuiz" 
-            class="px-4 py-2 bg-white border border-primary-500 text-primary-600 rounded-md hover:bg-primary-50"
+            class="px-4 py-2 bg-white border border-green-500 text-green-600 rounded-md hover:bg-green-50"
           >
             다시 풀기
           </button>
           <button 
             @click="viewResult" 
-            class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600"
+            class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
           >
             결과 보기
           </button>

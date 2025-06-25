@@ -127,7 +127,7 @@ const goHome = () => {
             </div>
             
             <div class="w-full h-1.5 bg-gray-100">
-                <div class="h-full bg-primary-500 transition-all duration-300" :style="{ width: `${progress}%` }"></div>
+                <div class="h-full bg-green-500 transition-all duration-300" :style="{ width: `${progress}%` }"></div>
             </div>
             
             <div class="w-full p-6 my-4 bg-gray-50 font-mono text-lg leading-relaxed whitespace-pre-wrap">
@@ -146,7 +146,7 @@ const goHome = () => {
             
             <textarea 
                 v-model="typedText" 
-                class="w-full mx-4 sm:mx-6 mb-6 p-4 border-2 border-gray-200 rounded-lg font-mono text-base resize-none focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
+                class="w-full mx-4 sm:mx-6 mb-6 p-4 border-2 border-gray-200 rounded-lg font-mono text-base resize-none focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100"
                 placeholder="여기에 입력하세요..." 
                 :disabled="isFinished"
                 @input="startTimer" 
@@ -164,7 +164,7 @@ const goHome = () => {
                 </button>
                 <button 
                     @click="finishPractice" 
-                    class="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-md transition-colors disabled:bg-primary-300 disabled:cursor-not-allowed"
+                    class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition-colors disabled:bg-green-300 disabled:cursor-not-allowed"
                     :disabled="!isTypingStarted || isFinished"
                 >
                     연습 완료

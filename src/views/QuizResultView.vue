@@ -1,12 +1,12 @@
 <template>
   <div class="container mx-auto px-4 py-8">
     <div v-if="resultData">
-      <h1 class="text-3xl font-bold text-primary-600 mb-2">퀴즈 결과</h1>
+      <h1 class="text-3xl font-bold text-green-600 mb-2">퀴즈 결과</h1>
       <h2 class="text-xl text-gray-600 mb-8">{{ resultData.category }} 카테고리</h2>
       
       <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
         <div class="flex justify-between items-center mb-6">
-          <h3 class="text-2xl font-bold text-primary-700">종합 점수</h3>
+          <h3 class="text-2xl font-bold text-green-700">종합 점수</h3>
           <div class="text-4xl font-bold" :class="getScoreColorClass(resultData.score)">
             {{ resultData.score }}점
           </div>
