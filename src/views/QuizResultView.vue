@@ -1,34 +1,67 @@
 <template>
-  <div class="max-w-3xl mx-auto my-8 px-4">
-    <div v-if="resultData" class="bg-white rounded-xl shadow-lg overflow-hidden">
-      <!-- 헤더 -->
-      <div class="py-8 px-6 text-center border-b border-gray-100">
-        <h2 class="text-2xl font-bold text-gray-800">퀴즈 결과</h2>
-        <p class="text-gray-600 mt-1">{{ resultData.category }} 카테고리</p>
-      </div>
+  <div class="container mx-auto px-4 py-8">
+    <div v-if="resultData">
+      <h1 class="text-3xl font-bold text-primary-600 mb-2">퀴즈 결과</h1>
+      <h2 class="text-xl text-gray-600 mb-8">{{ resultData.category }} 카테고리</h2>
       
-      <!-- 결과 요약 -->
-      <div class="p-6 text-center">
-        <div class="inline-flex items-center justify-center w-32 h-32 rounded-full mb-6"
-             :class="resultBackgroundClass">
-          <span class="text-3xl font-bold" :class="resultTextClass">{{ resultData.score }}%</span>
+      <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold text-primary-700">종합 점수</h3>
+          <div class="text-4xl font-bold" :class="getScoreColorClass(resultData.score)">
+            {{ resultData.score }}점
+          </div>
         </div>
         
-        <h3 class="text-xl font-bold text-gray-800 mb-2">{{ resultTitle }}</h3>
-        <p class="text-gray-600 mb-6">{{ resultMessage }}</p>
+        <div class="h-4 bg-gray-200 rounded-full mb-6">
+          <div 
+            class="h-4 rounded-full" 
+            :class="getScoreColorClass(resultData.score)"
+            :style="{ width: `${resultData.score}%` }"
+          ></div>
+        </div>
         
-        <div class="flex justify-center gap-2 text-lg font-medium">
-          <span class="text-gray-600">총 문제:</span>
-          <span class="text-gray-800">{{ resultData.totalQuestions }}개</span>
-          <span class="mx-2 text-gray-400">|</span>
-          <span class="text-gray-600">정답:</span>
-          <span class="text-green-600">{{ resultData.correctCount }}개</span>
+        <div class="text-sm text-gray-500 text-right">
+          정답률 기준 점수
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-8 mb-8">
+        <!-- 퀴즈 결과 -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-bold text-primary-700 mb-4">퀴즈 결과</h3>
+          
+          <div class="flex flex-col space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-gray-600">정답률</span>
+                <span class="font-semibold" :class="getScoreColorClass(resultData.score)">
+                  {{ resultData.score }}%
+                </span>
+              </div>
+              <div class="h-2 bg-gray-200 rounded-full">
+                <div 
+                  class="h-2 rounded-full" 
+                  :class="getScoreColorClass(resultData.score)"
+                  :style="{ width: `${resultData.score}%` }"
+                ></div>
+              </div>
+            </div>
+            
+            <div class="flex justify-between">
+              <div>
+                <div class="text-gray-600 mb-1">맞은 문제</div>
+                <div class="text-2xl font-semibold">
+                  {{ resultData.correctCount }}/{{ resultData.totalQuestions }}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       
       <!-- 퀴즈 답변 세부 내용 -->
       <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h3 class="text-xl font-bold text-green-700 mb-4">퀴즈 상세 결과</h3>
+        <h3 class="text-xl font-bold text-primary-700 mb-4">퀴즈 상세 결과</h3>
         
         <div class="space-y-4">
           <div 
@@ -58,28 +91,28 @@
         </div>
       </div>
       
-      <!-- 버튼 그룹 -->
-      <div class="flex flex-col sm:flex-row justify-between gap-4 px-6 pb-6">
-        <button 
-          @click="retryQuiz" 
-          class="flex items-center justify-center gap-2 px-5 py-3 bg-white border border-green-500 text-green-600 hover:bg-green-50 font-medium rounded-lg transition-colors"
+      <div class="flex justify-between">
+        <router-link 
+          :to="{ name: 'quiz', params: { categoryName: encodeURIComponent(resultData.category) } }" 
+          class="inline-block bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md transition-colors"
         >
-          <span>🔄</span> 다시 풀기
-        </button>
+          다시 시험보기
+        </router-link>
         
-        <button
-          @click="selectAnotherCategory" 
-          class="flex items-center justify-center gap-2 px-5 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors"
+        <router-link 
+          to="/quiz/categories" 
+          class="inline-block bg-secondary-500 hover:bg-secondary-600 text-white px-6 py-2 rounded-md transition-colors"
         >
-          <span>📚</span> 다른 카테고리 선택
-        </button>
+          다른 퀴즈 선택하기
+        </router-link>
       </div>
     </div>
+    
     <div v-else class="text-center py-16">
       <div class="text-2xl text-gray-500 mb-6">결과 데이터를 찾을 수 없습니다.</div>
       <router-link 
         to="/quiz/categories" 
-        class="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md transition-colors"
+        class="inline-block bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md transition-colors"
       >
         퀴즈 선택하기
       </router-link>
@@ -102,63 +135,11 @@ onMounted(() => {
   }
 })
 
-// 결과에 따른 타이틀
-const resultTitle = computed(() => {
-  if (!resultData.value) return ''
-  const score = resultData.value.score
-  if (score < 30) return '아직 부족해요'
-  if (score < 60) return '조금 더 노력하세요'
-  if (score < 85) return '잘 했어요!'
-  return '훌륭합니다!'
-})
-
-// 결과 메시지
-const resultMessage = computed(() => {
-  if (!resultData.value) return ''
-  const score = resultData.value.score
-  if (score < 50) {
-    return '더 많은 연습이 필요합니다. 기본 개념부터 다시 학습해보세요.'
-  } else if (score < 70) {
-    return '괜찮은 결과입니다만, 더 향상될 수 있습니다.'
-  } else if (score < 90) {
-    return '훌륭한 결과입니다! 조금만 더 완벽해질 수 있어요.'
-  } else {
-    return '놀라운 성적입니다! 이 주제를 완벽하게 이해하고 있군요.'
-  }
-})
-
-// 결과에 따른 배경색 클래스
-const resultBackgroundClass = computed(() => {
-  if (!resultData.value) return ''
-  const score = resultData.value.score
-  if (score < 50) return 'bg-red-50'
-  if (score < 70) return 'bg-amber-50'
-  if (score < 90) return 'bg-green-50'
-  return 'bg-primary-50'
-})
-
-// 결과에 따른 텍스트 색상 클래스
-const resultTextClass = computed(() => {
-  if (!resultData.value) return ''
-  const score = resultData.value.score
-  if (score < 50) return 'text-red-500'
-  if (score < 70) return 'text-amber-500'
-  if (score < 90) return 'text-green-500'
-  return 'text-primary-600'
-})
-
-// 다시 풀기
-const retryQuiz = () => {
-  if (!resultData.value) return;
-  router.push({
-    name: 'QuizView',
-    params: { categoryName: encodeURIComponent(resultData.value.category) }
-  })
-}
-
-// 다른 카테고리 선택
-const selectAnotherCategory = () => {
-  router.push({ name: 'quiz-category-list' })
+function getScoreColorClass(score) {
+  if (score >= 90) return 'text-green-600'
+  if (score >= 70) return 'text-primary-600'
+  if (score >= 50) return 'text-yellow-600'
+  return 'text-red-600'
 }
 </script>
 

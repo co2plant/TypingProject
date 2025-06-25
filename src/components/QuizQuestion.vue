@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+  <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
     <div class="p-6 border-b border-gray-100">
       <h3 class="text-xl font-semibold text-gray-800">{{ question }}</h3>
     </div>
@@ -46,7 +46,7 @@
           @click="checkAnswer" 
           v-if="!showAnswer" 
           :disabled="selectedOption === null"
-          class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
           답변 제출
         </button>
@@ -54,7 +54,7 @@
         <button 
           @click="$emit('next')" 
           v-else
-          class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2"
+          class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
         >
           다음 문제
         </button>

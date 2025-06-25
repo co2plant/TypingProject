@@ -2,14 +2,14 @@
   <div class="container mx-auto px-4 py-8">
     <div v-if="exam">
       <div v-if="examPhase === 'intro'" class="text-center">
-        <h1 class="text-3xl font-bold text-green-600 mb-4">{{ exam.title }}</h1>
+        <h1 class="text-3xl font-bold text-primary-600 mb-4">{{ exam.title }}</h1>
         <p class="text-gray-600 mb-8">{{ exam.description }}</p>
         <div class="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
           <h2 class="text-xl font-semibold mb-4">시험 안내</h2>
           <p class="mb-6">총 {{ exam.questions.length }}개의 객관식 문제로 구성되어 있습니다.</p>
           <button 
             @click="startExam" 
-            class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md transition-colors w-full"
+            class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-md transition-colors w-full"
           >
             시험 시작하기
           </button>
@@ -20,7 +20,7 @@
         <div v-if="examPhase === 'quiz'" class="bg-white rounded-lg shadow-lg p-8">
           <div class="flex justify-between items-center mb-8">
             <div>
-              <h2 class="text-2xl font-bold text-green-600">{{ exam.title }}</h2>
+              <h2 class="text-2xl font-bold text-primary-600">{{ exam.title }}</h2>
               <p class="text-gray-600">{{ currentQuestionIndex + 1 }} / {{ exam.questions.length }}번 문제</p>
             </div>
             <div>
@@ -32,7 +32,7 @@
             <div class="overflow-hidden h-2 text-xs flex rounded bg-gray-100">
               <div 
                 :style="`width: ${((currentQuestionIndex + 1) / exam.questions.length) * 100}%`" 
-                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all duration-500"
+                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary-500 transition-all duration-500"
               ></div>
             </div>
           </div>
@@ -47,8 +47,8 @@
                 :class="[
                   'p-4 rounded-lg cursor-pointer border-2 transition-colors',
                   selectedAnswer === option 
-                    ? 'border-green-500 bg-green-50'
-                    : 'border-gray-200 hover:border-green-300 hover:bg-green-50'
+                    ? 'border-primary-500 bg-primary-50'
+                    : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50'
                 ]"
               >
                 <span>{{ option }}</span>
@@ -63,7 +63,7 @@
               :class="[
                 'px-6 py-2 rounded-md text-white transition-colors',
                 selectedAnswer
-                  ? 'bg-green-500 hover:bg-green-600'
+                  ? 'bg-primary-500 hover:bg-primary-600'
                   : 'bg-gray-400 cursor-not-allowed'
               ]"
             >
@@ -73,11 +73,34 @@
         </div>
         
         <div v-else-if="examPhase === 'completed'" class="bg-white rounded-lg shadow-lg p-8 text-center">
-          <h2 class="text-2xl font-bold text-green-600 mb-4">시험 완료!</h2>
+          <h2 class="text-2xl font-bold text-primary-600 mb-4">시험 완료!</h2>
           <p class="text-gray-600 mb-8">결과를 확인하세요.</p>
           <button 
             @click="showResult"
-            class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md transition-colors"
+            class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-md transition-colors"
+          >
+            결과 보기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+                    : 'bg-gray-400 cursor-not-allowed'
+                ]"
+              >
+                {{ currentQuestionIndex === exam.questions.length - 1 ? '결과 보기' : '다음 문제' }}
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div v-else-if="examPhase === 'completed'" class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold text-primary-600 mb-4">시험 완료!</h2>
+          <p class="text-gray-600 mb-8">결과를 확인하세요.</p>
+          <button 
+            @click="showResult"
+            class="inline-block bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-md transition-colors w-full"
           >
             결과 보기
           </button>
@@ -95,7 +118,7 @@ import examData from '@/data/examData.json'
 // examId는 라우트 파라미터에서 가져옴
 const route = useRoute()
 const router = useRouter()
-const examId = computed(() => route.params.examId || route.params.id || '')
+const examId = computed(() => route.params.contentId || route.params.id || '')
 
 const exam = ref(null)
 const examPhase = ref('intro') // intro, quiz, completed
@@ -119,9 +142,6 @@ const currentQuestion = computed(() => {
 
 onMounted(() => {
   exam.value = examData.find(e => e.id === examId.value)
-  if (!exam.value) {
-    router.push({ name: 'exam-categories' })
-  }
 })
 
 function startExam() {
@@ -164,6 +184,7 @@ function showResult() {
   const quizScore = Math.floor((correctAnswers.value / exam.value.questions.length) * 100)
   const resultData = {
     examId: examId.value,
+    examCategory: exam.value.category,
     examTitle: exam.value.title,
     quiz: {
       correctCount: correctAnswers.value,
@@ -184,3 +205,6 @@ function formatTime(seconds) {
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
 }
 </script>
+
+<style scoped>
+</style>

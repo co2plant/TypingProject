@@ -1,14 +1,14 @@
 <template>
-  <div class="max-w-3xl mx-auto my-8 px-4">
-    <div class="bg-white rounded-xl shadow-lg p-8" v-if="quizQuestions.length > 0">
+  <div class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-lg shadow-lg p-8" v-if="quizQuestions.length > 0">
       <div class="flex justify-between items-center mb-8">
         <div>
-          <h1 class="text-2xl font-bold text-gray-800">{{ categoryName }} 퀴즈</h1>
+          <h1 class="text-2xl font-bold text-green-600">{{ categoryName }} 퀴즈</h1>
           <p class="text-gray-600">{{ currentIndex + 1 }} / {{ quizQuestions.length }}번 문제</p>
         </div>
         
         <div class="flex items-center gap-2">
-          <span class="text-primary-600 font-medium">{{ correctCount }}</span>
+          <span class="text-green-600 font-medium">{{ correctCount }}</span>
           <span class="text-gray-400">/</span>
           <span class="text-gray-600">{{ answeredCount }}</span>
         </div>
@@ -18,7 +18,7 @@
         <div class="overflow-hidden h-2 text-xs flex rounded bg-gray-100">
           <div 
             :style="`width: ${(currentIndex / quizQuestions.length) * 100}%`" 
-            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary-500 transition-all duration-500"
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all duration-500"
           ></div>
         </div>
       </div>
@@ -34,7 +34,7 @@
       />
       
       <div v-else class="text-center py-8">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">퀴즈 완료!</h2>
+        <h2 class="text-xl font-bold text-green-600 mb-4">퀴즈 완료!</h2>
         <p class="text-gray-600 mb-6">
           총 {{ quizQuestions.length }}문제 중 {{ correctCount }}문제를 맞추셨습니다.
           (정답률: {{ Math.round((correctCount / quizQuestions.length) * 100) }}%)
@@ -43,13 +43,13 @@
         <div class="flex justify-center gap-4 mt-8">
           <button 
             @click="retryQuiz" 
-            class="px-4 py-2 bg-white border border-green-500 text-primary-600 rounded-md hover:bg-green-50"
+            class="px-4 py-2 bg-white border border-primary-500 text-primary-600 rounded-md hover:bg-primary-50"
           >
             다시 풀기
           </button>
           <button 
             @click="viewResult" 
-            class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+            class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600"
           >
             결과 보기
           </button>
