@@ -119,9 +119,6 @@ const currentQuestion = computed(() => {
 
 onMounted(() => {
   exam.value = examData.find(e => e.id === examId.value)
-  if (!exam.value) {
-    router.push({ name: 'exam-categories' })
-  }
 })
 
 function startExam() {

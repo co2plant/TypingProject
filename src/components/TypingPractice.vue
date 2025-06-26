@@ -135,7 +135,7 @@ const goHome = () => {
                     v-for="(item, index) in highlightedText" 
                     :key="index"
                     :class="{
-                        'text-secondary-600': item.status === 'correct',
+                        'text-green-600': item.status === 'correct',
                         'text-red-600 bg-red-50 line-through': item.status === 'incorrect',
                         'text-gray-400': item.status === 'default'
                     }"
@@ -164,8 +164,13 @@ const goHome = () => {
                 </button>
                 <button 
                     @click="finishPractice" 
-                    class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition-colors disabled:bg-green-300 disabled:cursor-not-allowed"
                     :disabled="!isTypingStarted || isFinished"
+                    :class="[
+                        'px-4 py-2 rounded-md text-white transition-colors',
+                        isTypingStarted && !isFinished
+                            ? 'bg-green-500 hover:bg-green-600'
+                            : 'bg-gray-400 cursor-not-allowed'
+                    ]"
                 >
                     연습 완료
                 </button>

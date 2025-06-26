@@ -46,7 +46,12 @@
           @click="checkAnswer" 
           v-if="!showAnswer" 
           :disabled="selectedOption === null"
-          class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          :class="[
+            'px-4 py-2 rounded-md text-white transition-colors',
+            selectedOption !== null
+              ? 'bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
+              : 'bg-gray-400 cursor-not-allowed'
+          ]"
         >
           답변 제출
         </button>

@@ -41,8 +41,8 @@
       <div class="mx-6 mb-6 p-6 bg-gray-50 rounded-lg">
         <h3 class="text-lg font-semibold text-gray-800 mb-3">성능 분석</h3>
         <p class="mb-3 text-gray-700 leading-relaxed">
-          당신은 <span class="font-semibold text-secondary-600">{{ results.wpm }} 분당 단어</span>의 속도로 타자를 쳤으며, 
-          정확도는 <span class="font-semibold text-secondary-600">{{ results.accuracy }}%</span> 입니다.
+          당신은 <span class="font-semibold text-green-600">{{ results.wpm }} 분당 단어</span>의 속도로 타자를 쳤으며, 
+          정확도는 <span class="font-semibold text-green-600">{{ results.accuracy }}%</span> 입니다.
         </p>
         <p class="text-gray-700 leading-relaxed">{{ performanceMessage }}</p>
       </div>
@@ -88,18 +88,18 @@ onMounted(() => {
 const speedRating = computed(() => {
   const wpm = results.value.wpm
   if (wpm < 30) return { label: '초보', color: '#ff9800' }
-  if (wpm < 50) return { label: '평균', color: '#8bc34a' }
+  if (wpm < 50) return { label: '평균', color: '#4caf50' }
   if (wpm < 70) return { label: '양호', color: '#4caf50' }
-  if (wpm < 90) return { label: '빠름', color: '#2196f3' }
-  return { label: '전문가', color: '#9c27b0' }
+  if (wpm < 90) return { label: '빠름', color: '#22c55e' }
+  return { label: '전문가', color: '#15803d' }
 })
 
 const accuracyRating = computed(() => {
   const accuracy = results.value.accuracy
   if (accuracy < 80) return { label: '개선 필요', color: '#ff9800' }
-  if (accuracy < 90) return { label: '양호', color: '#8bc34a' }
+  if (accuracy < 90) return { label: '양호', color: '#4caf50' }
   if (accuracy < 97) return { label: '매우 좋음', color: '#4caf50' }
-  return { label: '우수', color: '#2196f3' }
+  return { label: '우수', color: '#22c55e' }
 })
 
 const performanceMessage = computed(() => {
