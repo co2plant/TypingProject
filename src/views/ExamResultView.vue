@@ -94,7 +94,7 @@
       
       <div class="flex justify-between">
         <router-link 
-          :to="`/exam/${resultData.category}/${resultData.examId}`" 
+          :to="{ name: 'exam-content', params: { categoryName: encodeURIComponent(resultData.category), contentId: resultData.examId } }" 
           class="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md transition-colors"
         >
           다시 시험보기

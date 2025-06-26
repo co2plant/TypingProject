@@ -95,7 +95,7 @@ import examData from '@/data/examData.json'
 // examId는 라우트 파라미터에서 가져옴
 const route = useRoute()
 const router = useRouter()
-const examId = computed(() => route.params.examId || route.params.id || '')
+const examId = computed(() => route.params.contentId || '')
 
 const exam = ref(null)
 const examPhase = ref('intro') // intro, quiz, completed
@@ -162,6 +162,7 @@ function showResult() {
   const resultData = {
     examId: examId.value,
     examTitle: exam.value.title,
+    category: exam.value.category,
     quiz: {
       correctCount: correctAnswers.value,
       totalQuestions: exam.value.questions.length,
