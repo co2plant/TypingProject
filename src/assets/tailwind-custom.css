@@ -1,0 +1,56 @@
+/* Custom Tailwind CSS classes */
+.text-primary-600 {
+  color: #059669;
+}
+
+.text-primary-700 {
+  color: #047857;
+}
+
+.bg-primary-50 {
+  background-color: #ecfdf5;
+}
+
+.bg-primary-500 {
+  background-color: #10b981;
+}
+
+.bg-primary-600 {
+  background-color: #059669;
+}
+
+.hover\:bg-primary-600:hover {
+  background-color: #059669;
+}
+
+.border-primary-200 {
+  border-color: #a7f3d0;
+}
+
+.border-primary-300 {
+  border-color: #6ee7b7;
+}
+
+.border-primary-500 {
+  border-color: #10b981;
+}
+
+.hover\:border-primary-300:hover {
+  border-color: #6ee7b7;
+}
+
+.hover\:border-primary-500:hover {
+  border-color: #10b981;
+}
+
+.bg-secondary-500 {
+  background-color: #3b82f6;
+}
+
+.bg-secondary-600 {
+  background-color: #2563eb;
+}
+
+.hover\:bg-secondary-600:hover {
+  background-color: #2563eb;
+}
