@@ -17,7 +17,7 @@
       <div class="relative mb-4">
         <div class="overflow-hidden h-2 text-xs flex rounded bg-gray-100">
           <div 
-            :style="`width: ${(currentIndex / quizQuestions.length) * 100}%`" 
+            :style="`width: ${((currentIndex + 1) / quizQuestions.length) * 100}%`" 
             class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all duration-500"
           ></div>
         </div>
