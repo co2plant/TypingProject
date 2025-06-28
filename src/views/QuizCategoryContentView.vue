@@ -45,7 +45,7 @@ const filteredQuizs = computed(() =>
 function selectQuiz(contentId) {
   router.push({
     name: 'quiz-content',
-    params: { contentId, categoryName: categoryName.value }
+    params: { contentId: contentId, categoryName: categoryName.value }
   })
 }
 

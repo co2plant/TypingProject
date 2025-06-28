@@ -93,10 +93,10 @@
       
       <div class="flex justify-between">
         <router-link 
-          :to="{ name: 'quiz', params: { categoryName: encodeURIComponent(resultData.category) } }" 
+          :to="{ name: 'quiz-category-content', params: { categoryName: encodeURIComponent(resultData.category) } }" 
           class="inline-block bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-md transition-colors"
         >
-          다시 시험보기
+          다시 퀴즈 풀기
         </router-link>
         
         <router-link 
@@ -121,10 +121,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
 
-const router = useRouter()
 const resultData = ref(null)
 
 // 결과 로드
