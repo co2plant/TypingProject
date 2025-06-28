@@ -24,6 +24,15 @@
         <p class="text-gray-600 text-center">타자 연습과 퀴즈가 결합된 종합 시험에 도전해보세요</p>
       </div>
     </div>
+    
+    <div class="text-center mt-8">
+      <router-link 
+        to="/admin"
+        class="text-gray-500 hover:text-gray-700 text-sm underline"
+      >
+        관리자 페이지
+      </router-link>
+    </div>
   </div>
 </template>
 <script setup>

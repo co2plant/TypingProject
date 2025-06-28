@@ -12,6 +12,11 @@ import ExamCategorySelectionView from '../views/ExamCategorySelectionView.vue'
 import ExamCategoryContentView from '../views/ExamCategoryContentView.vue'
 import ExamView from '../views/ExamView.vue'
 import ExamResultView from '../views/ExamResultView.vue'
+import AdminView from '../views/AdminView.vue'
+import AdminCategoryView from '../views/AdminCategoryView.vue'
+import AdminExamView from '../views/AdminExamView.vue'
+import AdminQuizView from '../views/AdminQuizView.vue'
+import AdminTypingView from '../views/AdminTypingView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +91,31 @@ const router = createRouter({
       path: '/exam-result',
       name: 'exam-result',
       component: ExamResultView
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminView
+    },
+    {
+      path: '/admin/categories',
+      name: 'admin-categories',
+      component: AdminCategoryView
+    },
+    {
+      path: '/admin/exams',
+      name: 'admin-exams',
+      component: AdminExamView
+    },
+    {
+      path: '/admin/quizzes',
+      name: 'admin-quizzes',
+      component: AdminQuizView
+    },
+    {
+      path: '/admin/typing',
+      name: 'admin-typing',
+      component: AdminTypingView
     }
   ]
 })
