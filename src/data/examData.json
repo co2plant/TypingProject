@@ -85,5 +85,44 @@
         "answer": "Promise"
       }
     ]
+  },
+  {
+    "id": "exam-javastructure",
+    "title": "자바의 구조",
+    "category": "백엔드",
+    "description": "자바(Java) 프로그램의 기본 구조와 구성 요소를 학습하는 시험입니다.",
+    "typingContent": "public class Main { public static void main(String[] args) { System.out.println(\"Hello, Java!\"); } }",
+    "questions": [
+      {
+        "question": "자바 프로그램의 진입점(Entry Point)은 무엇인가요?",
+        "options": [
+          "public static void main(String[] args)",
+          "public void start()",
+          "public static void run(String[] args)",
+          "public void main(String[] args)"
+        ],
+        "answer": "public static void main(String[] args)"
+      },
+      {
+        "question": "자바 소스 파일의 확장자는?",
+        "options": [
+          ".jav",
+          ".java",
+          ".class",
+          ".js"
+        ],
+        "answer": ".java"
+      },
+      {
+        "question": "자바에서 클래스를 선언할 때 사용하는 키워드는?",
+        "options": [
+          "function",
+          "def",
+          "class",
+          "struct"
+        ],
+        "answer": "class"
+      }
+    ]
   }
 ]
