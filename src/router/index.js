@@ -17,6 +17,7 @@ import AdminCategoryView from '../views/AdminCategoryView.vue'
 import AdminExamView from '../views/AdminExamView.vue'
 import AdminQuizView from '../views/AdminQuizView.vue'
 import AdminTypingView from '../views/AdminTypingView.vue'
+import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -91,6 +92,11 @@ const router = createRouter({
       path: '/exam-result',
       name: 'exam-result',
       component: ExamResultView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
     },
     {
       path: '/admin',
