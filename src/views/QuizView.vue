@@ -163,6 +163,3 @@ const answeredCount = computed(() => answers.value.length)
 
 const correctCount = computed(() => answers.value.filter(a => a.isCorrect).length)
 </script>
-
-<style scoped>
-</style>

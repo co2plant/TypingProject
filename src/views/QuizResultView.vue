@@ -140,7 +140,3 @@ function getScoreColorClass(score) {
   return 'text-red-600'
 }
 </script>
-
-<style scoped>
-/* Tailwind CSS로 스타일링 */
-</style>

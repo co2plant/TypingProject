@@ -109,6 +109,3 @@ const goToHome = () => {
   router.go({ name: 'home' })
 }
 </script>
-
-<style scoped>
-</style>

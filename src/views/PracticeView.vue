@@ -6,5 +6,3 @@
 <script setup>
 import TypingPractice from '@/components/TypingPractice.vue'
 </script>
-<style scoped>
-</style>

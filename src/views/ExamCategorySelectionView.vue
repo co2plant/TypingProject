@@ -67,5 +67,3 @@ const goHome = () => {
   router.push({ name: 'home' })
 }
 </script>
-<style scoped>
-</style

@@ -43,7 +43,5 @@ const goToExamCategorySelection = () => {
   router.push({ name: 'exam-category-list' })
 }
 </script>
-<style scoped>
-</style>
 
 

@@ -16,6 +16,3 @@ onMounted(() => {
     categoryName.value = decodeURIComponent(route.params.categoryName)
 })
 </script>
-
-<style scoped>
-</style>
