@@ -15,22 +15,25 @@
       <h3 class="text-xl font-bold mb-4">{{ editingCategory ? '카테고리 수정' : '카테고리 추가' }}</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">카테고리명</label>
-          <input 
+          <label>
+            <div class="block text-sm font-medium text-gray-700 mb-2">카테고리명</div>
+            <input 
             v-model="formData.name"
             type="text" 
             class="w-full border border-gray-300 rounded-md px-3 py-2"
-            placeholder="카테고리명 입력"
-          >
+            placeholder="카테고리명 입력" />
+          </label>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
-          <input 
+          <label>
+            <div  class="block text-sm font-medium text-gray-700 mb-2">설명</div>
+            <input 
             v-model="formData.description"
             type="text" 
             class="w-full border border-gray-300 rounded-md px-3 py-2"
-            placeholder="카테고리 설명 입력"
-          >
+            placeholder="카테고리 설명 입력" />
+          </label>
+          
         </div>
       </div>
       <div class="flex gap-2 mt-4">

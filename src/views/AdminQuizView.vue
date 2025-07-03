@@ -16,54 +16,62 @@
       <div class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">ID</label>
-            <input 
+            <label>
+              <div class="block text-sm font-medium text-gray-700 mb-2">ID</div>
+              <input 
               v-model="formData.id"
               type="text" 
               class="w-full border border-gray-300 rounded-md px-3 py-2"
-              :disabled="editingQuiz"
-            >
+              :disabled="editingQuiz" />
+            </label>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">카테고리</label>
-            <select 
+            <label>
+              <div  class="block text-sm font-medium text-gray-700 mb-2">카테고리</div>
+              <select 
               v-model="formData.category"
               class="w-full border border-gray-300 rounded-md px-3 py-2"
-            >
-              <option value="">카테고리 선택</option>
-              <option v-for="(desc, name) in categories" :key="name" :value="name">{{ name }}</option>
-            </select>
+              >
+                <option value="">카테고리 선택</option>
+                <option v-for="(desc, name) in categories" :key="name" :value="name">{{ name }}</option>
+              </select>
+            </label>
           </div>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">문제</label>
-          <textarea 
+          <label>
+            <div  class="block text-sm font-medium text-gray-700 mb-2">문제</div>
+            <textarea 
             v-model="formData.question"
             class="w-full border border-gray-300 rounded-md px-3 py-2 h-20"
-          ></textarea>
+            ></textarea>
+          </label>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">선택지</label>
-          <div class="space-y-2">
-            <input 
-              v-for="(option, index) in formData.options" 
-              :key="index"
-              v-model="formData.options[index]"
-              type="text" 
-              class="w-full border border-gray-300 rounded-md px-3 py-2"
-              :placeholder="`선택지 ${index + 1}`"
-            >
-          </div>
+          <label>
+            <div  class="block text-sm font-medium text-gray-700 mb-2">선택지</div>
+            <div class="space-y-2">
+              <input 
+                v-for="(option, index) in formData.options" 
+                :key="index"
+                v-model="formData.options[index]"
+                type="text" 
+                class="w-full border border-gray-300 rounded-md px-3 py-2"
+                :placeholder="`선택지 ${index + 1}`" />
+            </div>
+          </label>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">정답</label>
-          <select 
+          <label>
+            <div  class="block text-sm font-medium text-gray-700 mb-2">정답</div>
+            <select 
             v-model="formData.answer"
             class="w-full border border-gray-300 rounded-md px-3 py-2"
-          >
-            <option value="">정답 선택</option>
-            <option v-for="option in formData.options" :key="option" :value="option">{{ option }}</option>
-          </select>
+            >
+              <option value="">정답 선택</option>
+              <option v-for="option in formData.options" :key="option" :value="option">{{ option }}</option>
+            </select>
+          </label>
         </div>
       </div>
       <div class="flex gap-2 mt-4">

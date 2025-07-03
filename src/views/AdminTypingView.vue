@@ -16,47 +16,58 @@
       <div class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">ID</label>
-            <input 
-              v-model="formData.id"
-              type="text" 
-              class="w-full border border-gray-300 rounded-md px-3 py-2"
-              :disabled="editingContent"
-            >
+            <label>
+              <div class="block text-sm font-medium text-gray-700 mb-2">ID</div>
+              <input 
+                v-model="formData.id"
+                type="text" 
+                class="w-full border border-gray-300 rounded-md px-3 py-2"
+                :disabled="editingContent" />
+            </label>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">카테고리</label>
-            <select 
-              v-model="formData.category"
-              class="w-full border border-gray-300 rounded-md px-3 py-2"
-            >
-              <option value="">카테고리 선택</option>
-              <option v-for="(desc, name) in categories" :key="name" :value="name">{{ name }}</option>
-            </select>
+            <label>
+              <div class="block text-sm font-medium text-gray-700 mb-2">카테고리</div>
+              <select 
+                v-model="formData.category"
+                class="w-full border border-gray-300 rounded-md px-3 py-2"
+              >
+                <option value="">카테고리 선택</option>
+                <option v-for="(desc, name) in categories" :key="name" :value="name">{{ name }}</option>
+              </select>
+            </label>
           </div>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">제목</label>
-          <input 
-            v-model="formData.title"
-            type="text" 
-            class="w-full border border-gray-300 rounded-md px-3 py-2"
-          >
+          <label>
+            <div class="block text-sm font-medium text-gray-700 mb-2">제목</div>
+            <input 
+              v-model="formData.title"
+              type="text" 
+              class="w-full border border-gray-300 rounded-md px-3 py-2" />
+          </label>
+          
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">설명</label>
-          <textarea 
-            v-model="formData.description"
-            class="w-full border border-gray-300 rounded-md px-3 py-2 h-20"
-          ></textarea>
+          <label>
+            <div class="block text-sm font-medium text-gray-700 mb-2">설명</div>
+            <textarea 
+              v-model="formData.description"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 h-20"
+            ></textarea>
+          </label>
+          
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">타이핑 콘텐츠</label>
-          <textarea 
-            v-model="formData.content"
-            class="w-full border border-gray-300 rounded-md px-3 py-2 h-40"
-            placeholder="타이핑 연습용 텍스트를 입력하세요"
-          ></textarea>
+          <label>
+            <div class="block text-sm font-medium text-gray-700 mb-2">타이핑 콘텐츠</div>
+            <textarea 
+              v-model="formData.content"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 h-40"
+              placeholder="타이핑 연습용 텍스트를 입력하세요"
+            ></textarea>
+          </label>
+          
         </div>
       </div>
       <div class="flex gap-2 mt-4">
