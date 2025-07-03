@@ -91,13 +91,10 @@ const handleLogin = async () => {
   isLoading.value = true
   
   try {
-    // 로그인 로직 구현
     console.log('로그인 시도:', formData.value)
     
-    // 시뮬레이션을 위한 지연
     await new Promise(resolve => setTimeout(resolve, 1000))
     
-    // 성공 시 관리자 페이지로 이동
     alert('로그인 성공!')
     
   } catch (error) {

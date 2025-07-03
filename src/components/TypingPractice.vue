@@ -183,6 +183,3 @@ const goHome = () => {
         </div>
     </div>
 </template>
-
-<style scoped>
-</style>
