@@ -87,7 +87,6 @@ const answers = ref([])
 const quizCompleted = ref(false)
 
 onMounted(() => {
-  const contentId = decodeURIComponent(route.params.contentId || '');
   categoryName.value = decodeURIComponent(route.params.categoryName || '');
 
   quizQuestions.value = quizData.filter(q => q.category === categoryName.value)

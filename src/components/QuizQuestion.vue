@@ -115,6 +115,3 @@ const checkAnswer = () => {
   })
 }
 </script>
-
-<style scoped>
-</style>
