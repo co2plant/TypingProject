@@ -17,6 +17,7 @@ import AdminCategoryView from '../views/AdminCategoryView.vue'
 import AdminExamView from '../views/AdminExamView.vue'
 import AdminQuizView from '../views/AdminQuizView.vue'
 import AdminTypingView from '../views/AdminTypingView.vue'
+import AdminUsersView from '../views/AdminUsersView.vue'
 import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
@@ -122,6 +123,11 @@ const router = createRouter({
       path: '/admin/typing',
       name: 'admin-typing',
       component: AdminTypingView
+    },
+    {
+      path: '/admin/users',
+      name: 'admin-users',
+      component: AdminUsersView
     }
   ]
 })
